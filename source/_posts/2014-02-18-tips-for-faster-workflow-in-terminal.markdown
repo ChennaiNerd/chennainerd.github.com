@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tips for faster workflow in terminal"
+title: "Tips for fasten your workflow in terminal"
 date: 2014-02-18 18:00:13 +0530
 comments: true
 categories: Bash
@@ -72,4 +72,7 @@ Sometimes we want to change directory to previous working directory which we cha
 
     cd -
 
+
+We know, there are lot of cool tips out there. Share with us what you got.
+Happy hacking.
 
