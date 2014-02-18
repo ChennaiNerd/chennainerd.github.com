@@ -6,10 +6,12 @@
 <head>
   <meta charset="utf-8">
   <title>Chennai Nerd</title>
-  <meta name="author" content="Fizer Khan">
+  <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="Append an array to another array var a = [4,5,6];
+var b = [7,8,9];
+Array.prototype.push.apply(a, b); uneval(a); // is: [4, 5, 6, 7, 8, 9] Closures by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -38,7 +40,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">Chennai Nerd</a></h1>
   
-    <h2>We are chennai hackers.</h2>
+    <h2>Love web and so Live on web</h2>
   
 </hgroup>
 
@@ -66,6 +68,60 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/18/javascript-awesome-tips/">Javascript Awesome Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-18T14:42:08+05:30" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Append an array to another array</h3>
+
+<pre><code>var a = [4,5,6];
+var b = [7,8,9];
+Array.prototype.push.apply(a, b);
+
+uneval(a); // is: [4, 5, 6, 7, 8, 9]
+</code></pre>
+
+<h3>Closures by example</h3>
+
+<pre><code>function CreateAdder( add ) {
+
+  return function( value ) {
+
+    return value + add;
+  }
+}
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
@@ -77,6 +133,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/18/javascript-awesome-tips/">Javascript Awesome Tips</a>
+      </li>
     
   </ul>
 </section>
@@ -91,7 +151,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Fizer Khan -
+  Copyright &copy; 2014 - Chennai Nerd -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
