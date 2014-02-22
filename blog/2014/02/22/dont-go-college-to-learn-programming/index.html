@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Tips for fasten your workflow in terminal - Chennai Nerd</title>
+  <title>Don't go college to learn programming - Chennai Nerd</title>
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="Without a doubt and question, Terminal is home for all programmers.
-It always wonderful to have shortcuts to save our precious seconds.
-Here we will &hellip;">
+  <meta name="description" content="Everyday, we hear news of acquisition of tech companies for million or billion dollars.
+It creates a lot of excitement among programmers and even non &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ Here we will &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ChennaiJS.github.io/blog/2014/02/18/tips-for-faster-workflow-in-terminal/">
+  <link rel="canonical" href="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +97,7 @@ Here we will &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Tips for Fasten Your Workflow in Terminal</h1>
+      <h1 class="entry-title">Don't Go College to Learn Programming</h1>
     
     
       <p class="meta">
@@ -114,86 +113,75 @@ Here we will &hellip;">
   
 
 
-<time datetime="2014-02-18T18:00:13+05:30" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
+<time datetime="2014-02-22T17:09:55+05:30" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Without a doubt and question, Terminal is home for all programmers.
-It always wonderful to have shortcuts to save our precious seconds.
-Here we will discuss about techniques to fasten your workflow.
-Place all <code>bash</code> function and aliases inside your <code>.bash_profile</code> or <code>.bashrc</code>.</p>
+<div class="entry-content"><p>Everyday, we hear news of acquisition of tech companies for million or billion dollars.
+It creates a lot of excitement among programmers and even non programmers.
+So everybody wanted to learn programming and even programmer from C, Java background
+wanted to learn iOS, Android app development. Big question: Should i need
+to go college to learn programming? Not anymore, we have lot of online companies
+offering courses to train you like Ninja. Following are few places where
+you can learn to code.</p>
 
-<h3>Create and Change Directory</h3>
+<h3><a href="http://codeschool.com/">Code School</a></h3>
 
-<p>Generally, we create a folder and then <code>cd</code> to created directory.
-We can do it by</p>
+<p><a href="http://codeschool.com/">Code School</a> teaches web technologies in the comfort of
+your browser with video lessons, coding challenges, and screencasts. From my experience,
+it is one of best places to learn web and mobile application development.
+It costs <code>$29</code> per month. But it worths it.</p>
 
-<pre><code>take ()
-{
-    mkdir -p $1 &amp;&amp; cd $1
-}
-</code></pre>
+<h3><a href="http://www.codecademy.com/">Codecademy</a></h3>
 
-<p>Type <code>take foobar</code> will create and change directory to <code>foobar</code></p>
+<p>At Codecademy, you can learn to code in JavaScript, HTML and CSS, Python and Ruby.
+Codecademy is <code>Free</code>. It is one of the most famous website to teach you to code interactively,</p>
 
-<h3>Run static server</h3>
+<h3><a href="https://teamtreehouse.com/">Treehouse</a></h3>
 
-<p>If you are a web developer, you wanted to view static files in browser.
-Run your static server by</p>
+<p>Treehouse can prepare you for a developer gig, even if you’ve got no experience.
+A helpful iPad app also makes it easy to learn on the go.  Treehouse courses
+are more project-oriented than language-oriented, so they are perfect for novice
+programmer with a planned purpose, such as building a website, or an application.</p>
 
-<pre><code>server ()
-{
-    local port="${1:-8000}";
-    open "http://localhost:${port}/";
-    python -c 'import SimpleHTTPServer;
-    map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;
-    map[""] = "text/plain";
-    for key, value in map.items():
-        map[key] = value + ";charset=UTF-8";
-    SimpleHTTPServer.test();' "$port"
-}
-</code></pre>
+<p>It has two pricing plan. 1. <code>Basic($25)</code>  2. <code>Pro($49)</code> per month</p>
 
-<p>Type <code>server</code> insider any directory and visit <code>http://localhost:8000/</code> in browser</p>
+<h3><a href="https://www.udacity.com/">Udacity</a></h3>
 
-<h3>Git aliases</h3>
+<p>Udacity aims to bring college courses online specially Computer courses.
+Udacity claims that online courses are rigorous and may even make you sweat.
+Tackling projects built by tech leaders like Google, AT&amp;T, and Intuit,
+you’ll stretch yourself and learn new and relevant skills.</p>
 
-<p>If you are a git user, following aliases will save your time a lot.</p>
+<h3><a href="https://www.learnstreet.com/">LearnStreet</a></h3>
 
-<pre><code>alias gcl='git clone'
-alias ga='git add .'
-alias gall='git add -A'
-alias gst='git status'
-alias gc='git commit -v'
-alias gco='git checkout'
-alias gl='git pull'
-alias gp='git push'
-alias gpo='git push origin'
-</code></pre>
+<p>If you are that kind of personnel who do not fancy playful design and prefer to
+deal with cold hard codes, LearnStreet is probably your thing. It currently offers
+JavaScript, Python and Ruby courses at beginner level.</p>
 
-<h3>Run previous command</h3>
+<h3><a href="http://www.codehs.com/">codehs</a></h3>
 
-<p><code>!!</code> represents the previous command. Most of the time, we forgot to type sudo for
-some command.</p>
+<p>At this point all websites you read here are mainly dedicated to web development
+and computer science, but CodeHS is one with simple and fun game programming lessons
+that involve problem solving, JavaScript, animation, data structures,
+game design and puzzle challenges.</p>
 
-<pre><code>sudo !!
-</code></pre>
+<h3><a href="https://www.coursera.org/">Coursera</a></h3>
 
-<p>Above will run the previous command with <code>sudo</code>. CAUTION: Your previous command MUST NOT BE
- <code>rm -rf /</code> :).</p>
+<p>Coursera aims to bring college courses online — but it’s specifically focused
+on making the “best” courses available. Here you’ll find a wealth of computer
+science courses from schools not participating in the OCW program.</p>
 
-<h3>Go back to old directory</h3>
+<h3><a href="http://www.khanacademy.org/cs">khanacademy</a></h3>
 
-<p>Sometimes we want to change directory to previous working directory which we changed from. And revert to previous working directory we can use same command. This is vary much useful cd command.</p>
+<p>One of best known learning platform Khan Academy offers variety of courses, not only
+computer science. It serves as an open playground for both novice and amateurs
+particularly interested in learning drawing, animation and user interaction with code.</p>
 
-<pre><code>cd -
-</code></pre>
-
-<p>We know, there are lot of cool tips out there. Share with us what you got.
-Happy hacking.</p>
+<p>Be ready to code next Facebook.</p>
 </div>
 
 
@@ -216,21 +204,15 @@ Happy hacking.</p>
   
 
 
-<time datetime="2014-02-18T18:00:13+05:30" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
+<time datetime="2014-02-22T17:09:55+05:30" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/bash/'>Bash</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ChennaiJS.github.io/blog/2014/02/18/tips-for-faster-workflow-in-terminal/" data-via="" data-counturl="http://ChennaiJS.github.io/blog/2014/02/18/tips-for-faster-workflow-in-terminal/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/" data-via="" data-counturl="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/" >Tweet</a>
   
   
   
@@ -239,8 +221,8 @@ Happy hacking.</p>
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2014/02/22/c-programmers-experience-with-angularjs/" title="Previous Post: C programmer's experience with AngularJS">&laquo; C programmer's experience with AngularJS</a>
       
-        <a class="basic-alignment right" href="/blog/2014/02/22/c-programmers-experience-with-angularjs/" title="Next Post: C programmer's experience with AngularJS">C programmer's experience with AngularJS &raquo;</a>
       
     </p>
   </footer>
@@ -298,8 +280,8 @@ Happy hacking.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://ChennaiJS.github.io/blog/2014/02/18/tips-for-faster-workflow-in-terminal/';
-        var disqus_url = 'http://ChennaiJS.github.io/blog/2014/02/18/tips-for-faster-workflow-in-terminal/';
+        var disqus_identifier = 'http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/';
+        var disqus_url = 'http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/';
         var disqus_script = 'embed.js';
       
     (function () {
