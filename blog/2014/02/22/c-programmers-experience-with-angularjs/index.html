@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Chennai Nerd</title>
+  <title>C programmer's experience with AngularJS - Chennai Nerd</title>
   <meta name="author" content="Chennai Nerd">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ChennaiJS.github.io/">
+  <link rel="canonical" href="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -91,15 +91,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/02/22/c-programmers-experience-with-angularjs/">C Programmer&#8217;s Experience With AngularJS</a></h1>
+      <h1 class="entry-title">C Programmer's Experience With AngularJS</h1>
     
     
       <p class="meta">
@@ -122,7 +119,7 @@
   </header>
 
 
-  <div class="entry-content"><p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
+<div class="entry-content"><p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
 
 <p>I have this habit of trying some web related stuff rarely once in a year.  Couple of years back on a fine morning started to play with jQuery and was impressed by its power.  But at the end of the day thought there is so much to APIs to remember or at least be aware of. Then decided, it&rsquo;s not going to work out for me and that was the last time I tried anything on the web.</p>
 
@@ -223,22 +220,16 @@ the scope of the controller.</p>
 
 <p>No wonder, these features can one day become integral part of HTML.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/18/tips-for-faster-workflow-in-terminal/">Tips for Fasten Your Workflow in Terminal</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Yogeeswaran</span></span>
+
+      
 
 
 
@@ -250,99 +241,44 @@ the scope of the controller.</p>
   
 
 
-<time datetime="2014-02-18T18:00:13+05:30" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-02-22T15:29:28+05:30" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/html/'>html</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Without a doubt and question, Terminal is home for all programmers.
-It always wonderful to have shortcuts to save our precious seconds.
-Here we will discuss about techniques to fasten your workflow.
-Place all <code>bash</code> function and aliases inside your <code>.bash_profile</code> or <code>.bashrc</code>.</p>
-
-<h3>Create and Change Directory</h3>
-
-<p>Generally, we create a folder and then <code>cd</code> to created directory.
-We can do it by</p>
-
-<pre><code>take ()
-{
-    mkdir -p $1 &amp;&amp; cd $1
-}
-</code></pre>
-
-<p>Type <code>take foobar</code> will create and change directory to <code>foobar</code></p>
-
-<h3>Run static server</h3>
-
-<p>If you are a web developer, you wanted to view static files in browser.
-Run your static server by</p>
-
-<pre><code>server ()
-{
-    local port="${1:-8000}";
-    open "http://localhost:${port}/";
-    python -c 'import SimpleHTTPServer;
-    map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;
-    map[""] = "text/plain";
-    for key, value in map.items():
-        map[key] = value + ";charset=UTF-8";
-    SimpleHTTPServer.test();' "$port"
-}
-</code></pre>
-
-<p>Type <code>server</code> insider any directory and visit <code>http://localhost:8000/</code> in browser</p>
-
-<h3>Git aliases</h3>
-
-<p>If you are a git user, following aliases will save your time a lot.</p>
-
-<pre><code>alias gcl='git clone'
-alias ga='git add .'
-alias gall='git add -A'
-alias gst='git status'
-alias gc='git commit -v'
-alias gco='git checkout'
-alias gl='git pull'
-alias gp='git push'
-alias gpo='git push origin'
-</code></pre>
-
-<h3>Run previous command</h3>
-
-<p><code>!!</code> represents the previous command. Most of the time, we forgot to type sudo for
-some command.</p>
-
-<pre><code>sudo !!
-</code></pre>
-
-<p>Above will run the previous command with <code>sudo</code>. CAUTION: Your previous command MUST NOT BE
- <code>rm -rf /</code> :).</p>
-
-<h3>Go back to old directory</h3>
-
-<p>Sometimes we want to change directory to previous working directory which we changed from. And revert to previous working directory we can use same command. This is vary much useful cd command.</p>
-
-<pre><code>cd -
-</code></pre>
-
-<p>We know, there are lot of cool tips out there. Share with us what you got.
-Happy hacking.</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/" data-via="" data-counturl="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/18/tips-for-faster-workflow-in-terminal/" title="Previous Post: Tips for fasten your workflow in terminal">&laquo; Tips for fasten your workflow in terminal</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -350,7 +286,7 @@ Happy hacking.</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/02/22/c-programmers-experience-with-angularjs/">C programmer&#8217;s experience with AngularJS</a>
+        <a href="/blog/2014/02/22/c-programmers-experience-with-angularjs/">C programmer's experience with AngularJS</a>
       </li>
     
       <li class="post">
@@ -367,6 +303,7 @@ Happy hacking.</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -381,7 +318,10 @@ Happy hacking.</p>
       var disqus_shortname = 'chennainerd';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/';
+        var disqus_url = 'http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

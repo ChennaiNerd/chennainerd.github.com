@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | Chennai Nerd]]></title>
+  <link href="http://ChennaiJS.github.io/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://ChennaiJS.github.io/"/>
+  <updated>2014-02-22T15:44:36+05:30</updated>
+  <id>http://ChennaiJS.github.io/</id>
+  <author>
+    <name><![CDATA[Chennai Nerd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[C programmer's experience with AngularJS]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/"/>
+    <updated>2014-02-22T15:29:28+05:30</updated>
+    <id>http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs</id>
+    <content type="html"><![CDATA[<p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
+
+<p>I have this habit of trying some web related stuff rarely once in a year.  Couple of years back on a fine morning started to play with jQuery and was impressed by its power.  But at the end of the day thought there is so much to APIs to remember or at least be aware of. Then decided, it&rsquo;s not going to work out for me and that was the last time I tried anything on the web.</p>
+
+<p>Last week I had a chance to play with AngularJS and my immediate reaction was &ldquo;WoW!!!&rdquo;. After my first encounter with AngularJS I thought this is not going to be just one day affair and fell in love with AngularJS. During the course of this blog I&rsquo;ll walk you through the features of AngularJS which impressed me.</p>
+
+<h4>Framework and library:</h4>
+
+<p>First of all, AngularJS is not library like jQuery, it is a framework.  So there is no onus of remembering the APIs.</p>
+
+<h4>Empowering HTML:</h4>
+
+<p>HTML was born when the intention of web was only to display static content.  As the name suggests that is only a markup language &ndash; nothing wrong, nobody to blame. The people who designed that had only scoped for that.  But now, the web is not that simple.
+And being a C programmer I wished if there is anyway to add if condition, loop, block scope in HTML.  AngularJS comes as a prosthetic limb for the handicapped HTML.</p>
+
+<p>To display an element only when a condition is met (i.e.,) having a if construct. This is possible in AngularJS using <code>ng-if</code> or <code>ng-show</code> directive.</p>
+
+<p><code>
+&lt;input type="text" ng-model="customer.name" ng-if="customer.edit"&gt;
+&lt;span ng-bind="customer.name" ng-if="!customer.edit"&gt;&lt;/span&gt;
+</code></p>
+
+<p>If customer.edit is set true, customer.name will be displayed in text box, else will be displayed in span.</p>
+
+<p>To iterate through a array of items and create a <code>&lt;ul&gt;</code> or <code>&lt;li&gt;</code> or even populate a
+<code>&lt;table&gt;</code>.  <code>ng-repeat</code> directive does the job.</p>
+
+<p>```</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>ROI</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="customer in customers">
+            <td ng-bind="customer.name"></td>
+            <td ng-bind="customer.amount"></td>
+            <td ng-bind="customer.roi"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<p>```</p>
+
+<p>To restrict the scope of variables and functions within a block, <code>ng-controller</code> can be used.
+Though the use of <code>ng-controller</code> is more than that.</p>
+
+<p>```</p>
+
+<p><script></p>
+
+<pre><code>angular.module("bank", []).
+controller('BankController',
+    function BankController($scope) {
+        $scope.customers = [name:'kansamy', amount:'1000', roi:'9', edit:0}, {name:'munsamy', amount:'300', roi:'2', edit:0}];
+        $scope.customer = {name:'', amount:'', roi:'', edit:0};
+    });
+</code></pre>
+
+<p><script>
+<body ng-app="bank" ng-controller="BankController">
+&hellip;
+</body>
+```</p>
+
+<p>The scope of bank controller is throughout the <code>&lt;body&gt;</code>.
+This scope can be restricted to any <code>&lt;div&gt;</code> or any other element by setting
+<code>ng-controller</code> accordingly. <code>$scope</code> variable has a special meaning mapping to
+the scope of the controller.</p>
+
+<p>There is much more talk to about AngularJS &ndash; what I have captured here is only the picture of love at first sight.</p>
+
+<p>I have hosted a simple no use application exercising these features of AngularJS
+<a href="https://brilliant-fire-1717.firebaseapp.com/bank.html">https://brilliant-fire-1717.firebaseapp.com/bank.html</a></p>
+
+<p>No wonder, these features can one day become integral part of HTML.</p>
+]]></content>
+  </entry>
+  
+</feed>
