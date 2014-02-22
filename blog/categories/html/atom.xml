@@ -4,7 +4,7 @@
   <title><![CDATA[Category: html | Chennai Nerd]]></title>
   <link href="http://ChennaiJS.github.io/blog/categories/html/atom.xml" rel="self"/>
   <link href="http://ChennaiJS.github.io/"/>
-  <updated>2014-02-22T18:45:41+05:30</updated>
+  <updated>2014-02-22T19:06:38+05:30</updated>
   <id>http://ChennaiJS.github.io/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[C programmer's experience with AngularJS]]></title>
-    <link href="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/"/>
-    <updated>2014-02-22T15:29:28+05:30</updated>
-    <id>http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs</id>
+    <title type="html"><![CDATA[I am a C programmer. Why i love AngularJS?]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/"/>
+    <updated>2014-02-22T19:01:42+05:30</updated>
+    <id>http://ChennaiJS.github.io/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs</id>
     <content type="html"><![CDATA[<p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
 
 <p>I have this habit of trying some web related stuff rarely once in a year.  Couple of years back on a fine morning started to play with jQuery and was impressed by its power.  But at the end of the day thought there is so much to APIs to remember or at least be aware of. Then decided, it&rsquo;s not going to work out for me and that was the last time I tried anything on the web.</p>

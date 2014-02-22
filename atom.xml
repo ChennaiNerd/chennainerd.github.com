@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://ChennaiJS.github.io/atom.xml" rel="self"/>
   <link href="http://ChennaiJS.github.io/"/>
-  <updated>2014-02-22T18:45:41+05:30</updated>
+  <updated>2014-02-22T19:06:38+05:30</updated>
   <id>http://ChennaiJS.github.io/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -14,80 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Don't go college to learn programming]]></title>
-    <link href="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming/"/>
-    <updated>2014-02-22T17:09:55+05:30</updated>
-    <id>http://ChennaiJS.github.io/blog/2014/02/22/dont-go-college-to-learn-programming</id>
-    <content type="html"><![CDATA[<p>Everyday, we hear news of acquisition of tech companies for million or billion dollars.
-It creates a lot of excitement among programmers and even non programmers.
-So everybody wanted to learn programming and even programmer from C, Java background
-wanted to learn iOS, Android app development. Big question: Should i need
-to go college to learn programming? Not anymore, we have lot of online companies
-offering courses to train you like Ninja. Following are few places where
-you can learn to code.</p>
-
-<h3><a href="http://codeschool.com/">Code School</a></h3>
-
-<p><a href="http://codeschool.com/">Code School</a> teaches web technologies in the comfort of
-your browser with video lessons, coding challenges, and screencasts. From my experience,
-it is one of best places to learn web and mobile application development.
-It costs <code>$29</code> per month. But it worths it.</p>
-
-<h3><a href="http://www.codecademy.com/">Codecademy</a></h3>
-
-<p>At Codecademy, you can learn to code in JavaScript, HTML and CSS, Python and Ruby.
-Codecademy is <code>Free</code>. It is one of the most famous website to teach you to code interactively,</p>
-
-<h3><a href="https://teamtreehouse.com/">Treehouse</a></h3>
-
-<p>Treehouse can prepare you for a developer gig, even if you’ve got no experience.
-A helpful iPad app also makes it easy to learn on the go.  Treehouse courses
-are more project-oriented than language-oriented, so they are perfect for novice
-programmer with a planned purpose, such as building a website, or an application.</p>
-
-<p>It has two pricing plan. 1. <code>Basic($25)</code>  2. <code>Pro($49)</code> per month</p>
-
-<h3><a href="https://www.udacity.com/">Udacity</a></h3>
-
-<p>Udacity aims to bring college courses online specially Computer courses.
-Udacity claims that online courses are rigorous and may even make you sweat.
-Tackling projects built by tech leaders like Google, AT&amp;T, and Intuit,
-you’ll stretch yourself and learn new and relevant skills.</p>
-
-<h3><a href="https://www.learnstreet.com/">LearnStreet</a></h3>
-
-<p>If you are that kind of personnel who do not fancy playful design and prefer to
-deal with cold hard codes, LearnStreet is probably your thing. It currently offers
-JavaScript, Python and Ruby courses at beginner level.</p>
-
-<h3><a href="http://www.codehs.com/">codehs</a></h3>
-
-<p>At this point all websites you read here are mainly dedicated to web development
-and computer science, but CodeHS is one with simple and fun game programming lessons
-that involve problem solving, JavaScript, animation, data structures,
-game design and puzzle challenges.</p>
-
-<h3><a href="https://www.coursera.org/">Coursera</a></h3>
-
-<p>Coursera aims to bring college courses online — but it’s specifically focused
-on making the “best” courses available. Here you’ll find a wealth of computer
-science courses from schools not participating in the OCW program.</p>
-
-<h3><a href="http://www.khanacademy.org/cs">khanacademy</a></h3>
-
-<p>One of best known learning platform Khan Academy offers variety of courses, not only
-computer science. It serves as an open playground for both novice and amateurs
-particularly interested in learning drawing, animation and user interaction with code.</p>
-
-<p>Be ready to code next Facebook.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[C programmer's experience with AngularJS]]></title>
-    <link href="http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs/"/>
-    <updated>2014-02-22T15:29:28+05:30</updated>
-    <id>http://ChennaiJS.github.io/blog/2014/02/22/c-programmers-experience-with-angularjs</id>
+    <title type="html"><![CDATA[I am a C programmer. Why i love AngularJS?]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/"/>
+    <updated>2014-02-22T19:01:42+05:30</updated>
+    <id>http://ChennaiJS.github.io/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs</id>
     <content type="html"><![CDATA[<p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
 
 <p>I have this habit of trying some web related stuff rarely once in a year.  Couple of years back on a fine morning started to play with jQuery and was impressed by its power.  But at the end of the day thought there is so much to APIs to remember or at least be aware of. Then decided, it&rsquo;s not going to work out for me and that was the last time I tried anything on the web.</p>
@@ -188,6 +118,76 @@ the scope of the controller.</p>
 <a href="https://brilliant-fire-1717.firebaseapp.com/bank.html">https://brilliant-fire-1717.firebaseapp.com/bank.html</a></p>
 
 <p>No wonder, these features can one day become integral part of HTML.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Don't go to college to learn programming]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-to-college-to-learn-programming/"/>
+    <updated>2014-02-22T17:09:55+05:30</updated>
+    <id>http://ChennaiJS.github.io/blog/2014/02/22/dont-go-to-college-to-learn-programming</id>
+    <content type="html"><![CDATA[<p>Everyday, we hear news of acquisition of tech companies for million or billion dollars.
+It creates a lot of excitement among programmers and even non programmers.
+So everybody wanted to learn programming and even programmer from C, Java background
+wanted to learn iOS, Android app development. Big question: Should i need
+to go college to learn programming? Not anymore, we have lot of online companies
+offering courses to train you like Ninja. Following are few places where
+you can learn to code.</p>
+
+<h3><a href="http://codeschool.com/">Code School</a></h3>
+
+<p><a href="http://codeschool.com/">Code School</a> teaches web technologies in the comfort of
+your browser with video lessons, coding challenges, and screencasts. From my experience,
+it is one of best places to learn web and mobile application development.
+It costs <code>$29</code> per month. But it worths it.</p>
+
+<h3><a href="http://www.codecademy.com/">Codecademy</a></h3>
+
+<p>At Codecademy, you can learn to code in JavaScript, HTML and CSS, Python and Ruby.
+Codecademy is <code>Free</code>. It is one of the most famous website to teach you to code interactively,</p>
+
+<h3><a href="https://teamtreehouse.com/">Treehouse</a></h3>
+
+<p>Treehouse can prepare you for a developer gig, even if you’ve got no experience.
+A helpful iPad app also makes it easy to learn on the go.  Treehouse courses
+are more project-oriented than language-oriented, so they are perfect for novice
+programmer with a planned purpose, such as building a website, or an application.</p>
+
+<p>It has two pricing plan. 1. <code>Basic($25)</code>  2. <code>Pro($49)</code> per month</p>
+
+<h3><a href="https://www.udacity.com/">Udacity</a></h3>
+
+<p>Udacity aims to bring college courses online specially Computer courses.
+Udacity claims that online courses are rigorous and may even make you sweat.
+Tackling projects built by tech leaders like Google, AT&amp;T, and Intuit,
+you’ll stretch yourself and learn new and relevant skills.</p>
+
+<h3><a href="https://www.learnstreet.com/">LearnStreet</a></h3>
+
+<p>If you are that kind of personnel who do not fancy playful design and prefer to
+deal with cold hard codes, LearnStreet is probably your thing. It currently offers
+JavaScript, Python and Ruby courses at beginner level.</p>
+
+<h3><a href="http://www.codehs.com/">codehs</a></h3>
+
+<p>At this point all websites you read here are mainly dedicated to web development
+and computer science, but CodeHS is one with simple and fun game programming lessons
+that involve problem solving, JavaScript, animation, data structures,
+game design and puzzle challenges.</p>
+
+<h3><a href="https://www.coursera.org/">Coursera</a></h3>
+
+<p>Coursera aims to bring college courses online — but it’s specifically focused
+on making the “best” courses available. Here you’ll find a wealth of computer
+science courses from schools not participating in the OCW program.</p>
+
+<h3><a href="http://www.khanacademy.org/cs">khanacademy</a></h3>
+
+<p>One of best known learning platform Khan Academy offers variety of courses, not only
+computer science. It serves as an open playground for both novice and amateurs
+particularly interested in learning drawing, animation and user interaction with code.</p>
+
+<p>Be ready to code next Facebook.</p>
 ]]></content>
   </entry>
   
