@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Don't go college to learn programming"
+title: "Don't go to college to learn programming"
 date: 2014-02-22 17:09:55 +0530
 comments: true
 categories:
