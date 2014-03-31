@@ -13,9 +13,9 @@ Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</s
 ### Deploy
 
     rake generate
-    git commit
-    git push
+    rake deploy
 
 ## License
+
 (The MIT License)
 

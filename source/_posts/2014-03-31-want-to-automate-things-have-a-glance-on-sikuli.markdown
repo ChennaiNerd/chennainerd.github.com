@@ -59,7 +59,7 @@ Say you want to automate the following: launch a notepad, type some text and sav
 
 Below is the sample code written in Sikuli IDE.
 
-![Sikuli](http://i.imgur.com/qtvxGOA)
+![Sikuli](http://i.imgur.com/qtvxGOA.png)
 
 The same code snippet trying to open a diffent app say gedit, should work seamlessly in Ubuntu.
 For web browser based automation, wait for my next blog on Selenium.
