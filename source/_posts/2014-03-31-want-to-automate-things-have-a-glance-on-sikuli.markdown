@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Want to automate things? Have a glance on Sikuli"
+title: "Want to automate things? Have a glance on Sikuli!"
 date: 2014-03-31 15:14:47 +0530
 comments: true
 categories:
