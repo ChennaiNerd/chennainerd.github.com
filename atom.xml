@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://ChennaiJS.github.io/atom.xml" rel="self"/>
   <link href="http://ChennaiJS.github.io/"/>
-  <updated>2014-03-31T18:39:42+05:30</updated>
+  <updated>2014-03-31T19:13:16+05:30</updated>
   <id>http://ChennaiJS.github.io/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -76,7 +76,7 @@ runIDE.cmd (for windows users)
 
 <p>Below is the sample code written in Sikuli IDE.</p>
 
-<p><img src="http://i.imgur.com/qtvxGOA" alt="Sikuli" /></p>
+<p><img src="http://i.imgur.com/qtvxGOA.png" alt="Sikuli" /></p>
 
 <p>The same code snippet trying to open a diffent app say gedit, should work seamlessly in Ubuntu.
 For web browser based automation, wait for my next blog on Selenium.</p>
