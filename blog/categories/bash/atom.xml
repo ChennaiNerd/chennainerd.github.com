@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bash | Chennai Nerd]]></title>
+  <link href="http://www.chennainerd.in/blog/categories/bash/atom.xml" rel="self"/>
+  <link href="http://www.chennainerd.in/"/>
+  <updated>2014-03-31T21:29:46+05:30</updated>
+  <id>http://www.chennainerd.in/</id>
+  <author>
+    <name><![CDATA[Chennai Nerd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tips for fasten your workflow in terminal]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/02/18/tips-for-faster-workflow-in-terminal/"/>
+    <updated>2014-02-18T18:00:13+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/02/18/tips-for-faster-workflow-in-terminal</id>
+    <content type="html"><![CDATA[<p>Without a doubt and question, Terminal is home for all programmers.
+It always wonderful to have shortcuts to save our precious seconds.
+Here we will discuss about techniques to fasten your workflow.
+Place all <code>bash</code> function and aliases inside your <code>.bash_profile</code> or <code>.bashrc</code>.</p>
+
+<h3>Create and Change Directory</h3>
+
+<p>Generally, we create a folder and then <code>cd</code> to created directory.
+We can do it by</p>
+
+<pre><code>take ()
+{
+    mkdir -p $1 &amp;&amp; cd $1
+}
+</code></pre>
+
+<p>Type <code>take foobar</code> will create and change directory to <code>foobar</code></p>
+
+<h3>Run static server</h3>
+
+<p>If you are a web developer, you wanted to view static files in browser.
+Run your static server by</p>
+
+<pre><code>server ()
+{
+    local port="${1:-8000}";
+    open "http://localhost:${port}/";
+    python -c 'import SimpleHTTPServer;
+    map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;
+    map[""] = "text/plain";
+    for key, value in map.items():
+        map[key] = value + ";charset=UTF-8";
+    SimpleHTTPServer.test();' "$port"
+}
+</code></pre>
+
+<p>Type <code>server</code> insider any directory and visit <code>http://localhost:8000/</code> in browser</p>
+
+<h3>Git aliases</h3>
+
+<p>If you are a git user, following aliases will save your time a lot.</p>
+
+<pre><code>alias gcl='git clone'
+alias ga='git add .'
+alias gall='git add -A'
+alias gst='git status'
+alias gc='git commit -v'
+alias gco='git checkout'
+alias gl='git pull'
+alias gp='git push'
+alias gpo='git push origin'
+</code></pre>
+
+<h3>Run previous command</h3>
+
+<p><code>!!</code> represents the previous command. Most of the time, we forgot to type sudo for
+some command.</p>
+
+<pre><code>sudo !!
+</code></pre>
+
+<p>Above will run the previous command with <code>sudo</code>. CAUTION: Your previous command MUST NOT BE
+ <code>rm -rf /</code> :).</p>
+
+<h3>Go back to old directory</h3>
+
+<p>Sometimes we want to change directory to previous working directory which we changed from. And revert to previous working directory we can use same command. This is vary much useful cd command.</p>
+
+<pre><code>cd -
+</code></pre>
+
+<p>We know, there are lot of cool tips out there. Share with us what you got.
+Happy hacking.</p>
+]]></content>
+  </entry>
+  
+</feed>
