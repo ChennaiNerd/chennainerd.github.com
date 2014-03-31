@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://ChennaiJS.github.io/atom.xml" rel="self"/>
   <link href="http://ChennaiJS.github.io/"/>
-  <updated>2014-02-22T19:06:38+05:30</updated>
+  <updated>2014-03-31T15:45:50+05:30</updated>
   <id>http://ChennaiJS.github.io/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Want to automate things? Have a glance on Sikuli!]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/"/>
+    <updated>2014-03-31T15:14:47+05:30</updated>
+    <id>http://ChennaiJS.github.io/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli</id>
+    <content type="html"><![CDATA[<p>You want to automate some repetitive tasks in daily usage of applications or
+web pages, games or IT systems and networks etc., and you do not
+have adequate tools in hand.</p>
+
+<p>Then you are at the right place now. Just give a try for Sikuli, a simple tool
+for GUI automation. Sikuli can automate any computer operations based on screen shots.</p>
+
+<h2>Sikuli Installation steps</h2>
+
+<h4>Step 1: Download the following from <a href="https://launchpad.net/sikuli/+download">https://launchpad.net/sikuli/+download</a></h4>
+
+<pre><code>Sikuli-1.0.1-Supplemental-LinuxVisionProxy.zip (md5)
+sikuli-setup.jar (md5)
+</code></pre>
+
+<h4>Step 2: Install dependencies</h4>
+
+<p>Ubuntu users: Install the below packages (Dependencies for Sikuli)</p>
+
+<pre><code>sudo apt-get install openjdk-7-jdk
+sudo apt-get install libopencv-dev
+sudo apt-get install libtesseract-dev
+</code></pre>
+
+<p>Unzip the .zip file and follow the readme steps to build a new <code>libvisionproxy.so</code> file.</p>
+
+<p>Windows users: Install java jre 7</p>
+
+<h4>Step 3: Install Sikuli using the jar file.</h4>
+
+<p>Run the <code>Sikuli-setup.jar</code> by setting the executable bit if not set
+on it and use the command:</p>
+
+<pre><code>java -jar sikuli-setup.jar
+</code></pre>
+
+<p>Ubuntu users should replace the newly generated <code>libvisionproxy.so</code> with the
+existing one in <code>&lt;Sikuli_installed_folder&gt;/libs/</code> location.</p>
+
+<h4>Step 4: Launch the Sikuli IDE using the command.</h4>
+
+<pre><code>cd &lt;Sikuli_installed_folder&gt;
+runIDE.cmd (for windows users)
+./runIDE (for Ubuntu users)
+</code></pre>
+
+<h4>Step 5: Run the Sikuli tests from command line using the command:</h4>
+
+<pre><code>runIDE.cmd –r &lt;sikuli_test_name.sikuli&gt;    (for windows users)
+./runIDE –r &lt;sikuli_test_name.sikuli&gt;      (for Ubuntu users)
+</code></pre>
+
+<h3>Sample Sikuli code snippet:</h3>
+
+<p>Say you want to automate the following: launch a notepad, type some text and save it.</p>
+
+<p>Below is the sample code written in Sikuli IDE.</p>
+
+<p><img src="http://i.imgur.com/qtvxGOA" alt="Sikuli" /></p>
+
+<p>The same code snippet trying to open a diffent app say gedit, should work seamlessly in Ubuntu.
+For web browser based automation, wait for my next blog on Selenium.</p>
+
+<p>Happy automation folks !!!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[I am a C programmer. Why i love AngularJS?]]></title>
@@ -122,17 +194,16 @@ the scope of the controller.</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Don't go to college to learn programming]]></title>
-    <link href="http://ChennaiJS.github.io/blog/2014/02/22/dont-go-to-college-to-learn-programming/"/>
+    <title type="html"><![CDATA[Best Places to learn programming]]></title>
+    <link href="http://ChennaiJS.github.io/blog/2014/02/22/best-places-to-learn-programming/"/>
     <updated>2014-02-22T17:09:55+05:30</updated>
-    <id>http://ChennaiJS.github.io/blog/2014/02/22/dont-go-to-college-to-learn-programming</id>
+    <id>http://ChennaiJS.github.io/blog/2014/02/22/best-places-to-learn-programming</id>
     <content type="html"><![CDATA[<p>Everyday, we hear news of acquisition of tech companies for million or billion dollars.
 It creates a lot of excitement among programmers and even non programmers.
 So everybody wanted to learn programming and even programmer from C, Java background
 wanted to learn iOS, Android app development. Big question: Should i need
 to go college to learn programming? Not anymore, we have lot of online companies
-offering courses to train you like Ninja. Following are few places where
-you can learn to code.</p>
+offering courses to train you like Ninja. Following are few places where you can learn to code.</p>
 
 <h3><a href="http://codeschool.com/">Code School</a></h3>
 

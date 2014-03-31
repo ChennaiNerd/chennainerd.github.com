@@ -9,7 +9,9 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript. This is only for those who are in inertia &hellip;">
+  <meta name="description" content="You want to automate some repetitive tasks in daily usage of applications or
+web pages, games or IT systems and networks etc., and you do not
+have &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,6 +95,105 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/">Want to Automate Things? Have a Glance on Sikuli!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-31T15:14:47+05:30" pubdate data-updated="true">Mar 31<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>You want to automate some repetitive tasks in daily usage of applications or
+web pages, games or IT systems and networks etc., and you do not
+have adequate tools in hand.</p>
+
+<p>Then you are at the right place now. Just give a try for Sikuli, a simple tool
+for GUI automation. Sikuli can automate any computer operations based on screen shots.</p>
+
+<h2>Sikuli Installation steps</h2>
+
+<h4>Step 1: Download the following from <a href="https://launchpad.net/sikuli/+download">https://launchpad.net/sikuli/+download</a></h4>
+
+<pre><code>Sikuli-1.0.1-Supplemental-LinuxVisionProxy.zip (md5)
+sikuli-setup.jar (md5)
+</code></pre>
+
+<h4>Step 2: Install dependencies</h4>
+
+<p>Ubuntu users: Install the below packages (Dependencies for Sikuli)</p>
+
+<pre><code>sudo apt-get install openjdk-7-jdk
+sudo apt-get install libopencv-dev
+sudo apt-get install libtesseract-dev
+</code></pre>
+
+<p>Unzip the .zip file and follow the readme steps to build a new <code>libvisionproxy.so</code> file.</p>
+
+<p>Windows users: Install java jre 7</p>
+
+<h4>Step 3: Install Sikuli using the jar file.</h4>
+
+<p>Run the <code>Sikuli-setup.jar</code> by setting the executable bit if not set
+on it and use the command:</p>
+
+<pre><code>java -jar sikuli-setup.jar
+</code></pre>
+
+<p>Ubuntu users should replace the newly generated <code>libvisionproxy.so</code> with the
+existing one in <code>&lt;Sikuli_installed_folder&gt;/libs/</code> location.</p>
+
+<h4>Step 4: Launch the Sikuli IDE using the command.</h4>
+
+<pre><code>cd &lt;Sikuli_installed_folder&gt;
+runIDE.cmd (for windows users)
+./runIDE (for Ubuntu users)
+</code></pre>
+
+<h4>Step 5: Run the Sikuli tests from command line using the command:</h4>
+
+<pre><code>runIDE.cmd –r &lt;sikuli_test_name.sikuli&gt;    (for windows users)
+./runIDE –r &lt;sikuli_test_name.sikuli&gt;      (for Ubuntu users)
+</code></pre>
+
+<h3>Sample Sikuli code snippet:</h3>
+
+<p>Say you want to automate the following: launch a notepad, type some text and save it.</p>
+
+<p>Below is the sample code written in Sikuli IDE.</p>
+
+<p><img src="http://i.imgur.com/qtvxGOA" alt="Sikuli" /></p>
+
+<p>The same code snippet trying to open a diffent app say gedit, should work seamlessly in Ubuntu.
+For web browser based automation, wait for my next blog on Selenium.</p>
+
+<p>Happy automation folks !!!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -234,7 +335,7 @@ the scope of the controller.</p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/02/22/dont-go-to-college-to-learn-programming/">Don&#8217;t Go to College to Learn Programming</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/02/22/best-places-to-learn-programming/">Best Places to Learn Programming</a></h1>
     
     
       <p class="meta">
@@ -262,8 +363,7 @@ It creates a lot of excitement among programmers and even non programmers.
 So everybody wanted to learn programming and even programmer from C, Java background
 wanted to learn iOS, Android app development. Big question: Should i need
 to go college to learn programming? Not anymore, we have lot of online companies
-offering courses to train you like Ninja. Following are few places where
-you can learn to code.</p>
+offering courses to train you like Ninja. Following are few places where you can learn to code.</p>
 
 <h3><a href="http://codeschool.com/">Code School</a></h3>
 
@@ -447,11 +547,15 @@ Happy hacking.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/">Want to automate things? Have a glance on Sikuli!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/">I am a C programmer. Why i love AngularJS?</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/22/dont-go-to-college-to-learn-programming/">Don&#8217;t go to college to learn programming</a>
+        <a href="/blog/2014/02/22/best-places-to-learn-programming/">Best Places to learn programming</a>
       </li>
     
       <li class="post">
