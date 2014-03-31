@@ -15,6 +15,7 @@ Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</s
     rake generate
     rake deploy
 
+
 If you are new user, then run below command before above two commands
 
     rake setup_github_pages
