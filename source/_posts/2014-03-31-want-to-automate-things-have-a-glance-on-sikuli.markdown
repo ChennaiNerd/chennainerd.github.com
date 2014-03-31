@@ -10,8 +10,8 @@ You want to automate some repetitive tasks in daily usage of applications or
 web pages, games or IT systems and networks etc., and you do not
 have adequate tools in hand.
 
-Then you are at the right place now. Just give a try for Sikuli, a simple tool for GUI automation.
-Sikuli can automate any computer operations based on screen shots.
+Then you are at the right place now. Just give a try for Sikuli, a simple tool
+for GUI automation. Sikuli can automate any computer operations based on screen shots.
 
 ## Sikuli Installation steps
 

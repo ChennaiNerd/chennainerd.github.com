@@ -11,8 +11,7 @@ It creates a lot of excitement among programmers and even non programmers.
 So everybody wanted to learn programming and even programmer from C, Java background
 wanted to learn iOS, Android app development. Big question: Should i need
 to go college to learn programming? Not anymore, we have lot of online companies
-offering courses to train you like Ninja. Following are few places where
-you can learn to code.
+offering courses to train you like Ninja. Following are few places where you can learn to code.
 
 ### [Code School](http://codeschool.com/)
 
