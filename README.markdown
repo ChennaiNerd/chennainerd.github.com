@@ -7,13 +7,17 @@ Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</s
 
 ### Create and Preview
 
-    rake new_post["title"]
+    rake new_post["title of the blog"]
     rake preview
 
 ### Deploy
 
     rake generate
     rake deploy
+
+If you are new user, then run below command before above two commands
+
+    rake setup_github_pages
 
 ## License
 
