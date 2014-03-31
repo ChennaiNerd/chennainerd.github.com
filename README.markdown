@@ -5,9 +5,16 @@ live on web. We truly believe that learning comes from sharing.
 We use this platform to share what we know and like to know what you got.
 Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</strong>
 
-## Contributing
+### Create and Preview
 
-* Fizer Khan ([@fizerkhan](http://www.twitter.com/fizerkhan))
+    rake new_post["title"]
+    rake preview
+
+### Deploy
+
+    rake generate
+    git commit
+    git push
 
 ## License
 (The MIT License)
