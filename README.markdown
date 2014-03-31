@@ -10,14 +10,22 @@ Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</s
     rake new_post["title of the blog"]
     rake preview
 
-### Deploy
+### Generate and Deploy
 
     rake generate
     rake deploy
 
+    (or)
+
+    rake gen_deploy
+
 If you are new user, then run below command before above two commands
 
     rake setup_github_pages
+
+CAUTION: When you push changes, push it to source branch alone
+
+         git push origin source
 
 ## License
 
