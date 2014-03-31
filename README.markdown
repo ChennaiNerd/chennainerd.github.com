@@ -19,8 +19,6 @@ If you are new user, then run below command before above two commands
 
     rake setup_github_pages
 
-DONT DO IT: Do not commit manually by git commit and git deploy
-
 ## License
 
 (The MIT License)
