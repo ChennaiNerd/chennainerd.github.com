@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Bash | Chennai Nerd]]></title>
+  <title><![CDATA[Category: bash | Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-19T11:35:13+05:30</updated>
+  <updated>2014-05-19T22:50:07+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
