@@ -9,9 +9,8 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="You want to automate some repetitive tasks in daily usage of applications or
-web pages, games or IT systems and networks etc., and you do not
-have &hellip;">
+  <meta name="description" content="One of the few obscure feature of python (for the beginners) is Generators.
+In this post I would like to share few naive questions I had about &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +94,409 @@ have &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/19/generators-in-python/">Generators in Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-19T11:01:58+05:30" pubdate data-updated="true">May 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the few obscure feature of python (for the beginners) is <strong>Generators</strong>.
+In this post I would like to share few naive questions I had about generators
+and the answers I got after understanding them.</p>
+
+<blockquote><p><strong>Question 1:</strong> Are generators something like static variables in C?  Say, generateFibonacciNumber() is a generator.   First time I call generateFibonacciNumber() and iterate upto value 5, the next time I call  generateFibonacciNumber() will it start returning from value 8 when iterated?</p></blockquote>
+
+<p>This could sound like most dumb question on earth, but honestly I had this
+question having come from C background.</p>
+
+<p><strong>Answer:</strong>  No. Generators should not be confused with static variables in C.
+Every time a generator is called it will return a generator object and each has
+their own state variables.  So iterating one generator will not affect the other.</p>
+
+<blockquote><p><strong>Question 2:</strong> Creating multiple generators holding their reference and not iterating through them could potentially lead to memory exhaustion, correct?</p></blockquote>
+
+<p>Phew.  Yet another dumb question.</p>
+
+<p><strong>Answer:</strong> Obviously if you are going to hold the reference it is going to eat memory.
+But, that is not the problem of generators.  Let&rsquo;s take for example, to process
+a million lines of code we use a <em>generator</em> and a <em>normal function</em>.  At any point
+of time single generator object will hold only state variables and not the memory
+needed to hold all million lines.  But holding the value returned by a normal
+function is like holding million lines in the memory.  Compare holding multiple
+instances of state variables and multiple instance of million lines &ndash; the answer is obvious.</p>
+
+<h3>So, what is actually is a Generator?</h3>
+
+<p>To understand generator we&rsquo;ll have to understand what is <strong>iterator</strong> in python.</p>
+
+<p>In simple terms, <strong>iterator</strong> is a object having two methods <code>__iter__()</code> and <code>next()</code>.
+When iterators are using along with looping constructs like <code>for</code>, the <code>__iter__</code> and
+<code>next</code> methods are called implicitly.</p>
+
+<p>You can find more information on iterators <a href="https://docs.python.org/2/library/stdtypes.html#iterator-types">here</a>.</p>
+
+<blockquote><p>__iter__() : Returing itself</p>
+
+<p>next()  : Returning next item, or <strong>StopIteration</strong> exception on no further items.</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Iterator</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="bp">self</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>  <span class="n">iterator</span> <span class="o">=</span> <span class="n">Iterator</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">i</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Executing this code will give us output as shown below,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;instance&#39;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Generator</strong> is a special iterator.  We will not have to write a class with
+these methods, instead <code>yield</code> keyword can do all the <strong>magic</strong> for us.</p>
+
+<p>Now, let us rewrite the above code with generator.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">generator</span><span class="p">():</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">yield</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>  <span class="n">gen</span> <span class="o">=</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">print</span> <span class="nb">dir</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">i</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Executing this code will give us output as shown below,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;generator&#39;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">[</span><span class="s">&#39;__class__&#39;</span><span class="p">,</span> <span class="s">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s">&#39;__format__&#39;</span><span class="p">,</span> <span class="s">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s">&#39;__init__&#39;</span><span class="p">,</span> <span class="s">&#39;__iter__&#39;</span><span class="p">,</span> <span class="s">&#39;__name__&#39;</span><span class="p">,</span> <span class="s">&#39;__new__&#39;</span><span class="p">,</span> <span class="s">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s">&#39;__str__&#39;</span><span class="p">,</span> <span class="s">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="s">&#39;gi_code&#39;</span><span class="p">,</span> <span class="s">&#39;gi_frame&#39;</span><span class="p">,</span> <span class="s">&#39;gi_running&#39;</span><span class="p">,</span> <span class="s">&#39;next&#39;</span><span class="p">,</span> <span class="s">&#39;send&#39;</span><span class="p">,</span> <span class="s">&#39;throw&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>Is that all?  Is generator just another method to create iterator?</p>
+
+<p>But according to the zen of python,</p>
+
+<p><em>&ldquo;There should be one&mdash; and preferably only one &mdash;obvious way to do it.&rdquo;</em></p></blockquote>
+
+<p>Hey look, <code>dir(generator)</code> is giving something more than what we would expect from a <code>dir(function)</code>.</p>
+
+<h3>Generator is more than just an iterator</h3>
+
+<p>Let us now dwell deep into generator, for which we&rsquo;ll have to understand <code>yield</code> keyword.</p>
+
+<p><code>yield</code> as just the literal meaning &ndash; relinquishes the control temporarily.</p>
+
+<p>Whenever a generator function is called, the actual code
+inside the function does not get executed.</p>
+
+<p>For example, the same code without iterating through items of generator.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">generator</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;First line of generator&#39;</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">yield</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;Before calling generator&#39;</span>
+</span><span class='line'>  <span class="n">gen</span> <span class="o">=</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;After calling generator&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output of this code will look like,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">Before</span> <span class="n">calling</span> <span class="n">generator</span>
+</span><span class='line'><span class="n">After</span> <span class="n">calling</span> <span class="n">generator</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can notice something.  <em>&ldquo;First line of generator&rdquo;</em> is
+not printed when generator is invoked.</p>
+
+<blockquote><p>This is how, generator is different from other functions.  Calling a generator
+function does not execute any code in the function, instead returns a generator
+object.</p>
+
+<p>So, when does actual code gets executed?</p>
+
+<p><strong>The actual code gets executed when the next() method is called.</strong></p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">generator</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In generator() first line&#39;</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;In generator() before yield&#39;</span>
+</span><span class='line'>    <span class="k">yield</span> <span class="n">i</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;In generator() after yield&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() before calling generator()&#39;</span>
+</span><span class='line'>  <span class="n">gen</span> <span class="o">=</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() after calling generator()&#39;</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() before calling next()&#39;</span>
+</span><span class='line'>  <span class="n">gen</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() after calling next()&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output of this code will look like this,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">before</span> <span class="n">calling</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">after</span> <span class="n">calling</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">before</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">first</span> <span class="n">line</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">before</span> <span class="k">yield</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">after</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>It is clear from the example above, that the code inside generator
+actually gets executed when next() method is called.</p>
+
+<p>One more thing to be noticed here is, the last line of generator
+<strong>&lsquo;In generator() after yield&rsquo;</strong> is not getting printed.</p>
+
+<p>The execution resumes from this point when next() method of the generator
+object is called the next time.</p></blockquote>
+
+<p>The code snippet below explains this control flow.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">generator</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In generator() first line&#39;</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;In generator() before yield&#39;</span>
+</span><span class='line'>    <span class="k">yield</span> <span class="n">i</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;In generator() after yield&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() before calling generator()&#39;</span>
+</span><span class='line'>  <span class="n">gen</span> <span class="o">=</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() after calling generator()&#39;</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() before calling next()&#39;</span>
+</span><span class='line'>  <span class="n">gen</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() after calling next()&#39;</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() before calling next() second time&#39;</span>
+</span><span class='line'>  <span class="n">gen</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&#39;In main() after calling next() second time&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output of this code will be,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">before</span> <span class="n">calling</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">after</span> <span class="n">calling</span> <span class="n">generator</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">before</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">first</span> <span class="n">line</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">before</span> <span class="k">yield</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">after</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">before</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span> <span class="n">second</span> <span class="n">time</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">after</span> <span class="k">yield</span>
+</span><span class='line'><span class="n">In</span> <span class="n">generator</span><span class="p">()</span> <span class="n">before</span> <span class="k">yield</span>
+</span><span class='line'><span class="n">In</span> <span class="n">main</span><span class="p">()</span> <span class="n">after</span> <span class="n">calling</span> <span class="nb">next</span><span class="p">()</span> <span class="n">second</span> <span class="n">time</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>So, when to use generator and when to use iterable?</h3>
+
+<p>Any iterable can be replaced with a generator but converse is not true.</p>
+
+<p>Generators are preferred for two reasons,</p>
+
+<ol>
+<li>When dealing with large sequence</li>
+<li>When the end point of the sequence is not known beforehand</li>
+</ol>
+
+
+<p>Thats all about generators in Python.  Happy hacking.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -545,6 +947,10 @@ Happy hacking.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/19/generators-in-python/">Generators in Python</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/">Want to automate things? Have a glance on Sikuli!</a>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | Chennai Nerd]]></title>
+  <link href="http://www.chennainerd.in/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://www.chennainerd.in/"/>
+  <updated>2014-05-19T11:11:09+05:30</updated>
+  <id>http://www.chennainerd.in/</id>
+  <author>
+    <name><![CDATA[Chennai Nerd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Generators in Python]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/05/19/generators-in-python/"/>
+    <updated>2014-05-19T11:01:58+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/05/19/generators-in-python</id>
+    <content type="html"><![CDATA[<p>One of the few obscure feature of python (for the beginners) is <strong>Generators</strong>.
+In this post I would like to share few naive questions I had about generators
+and the answers I got after understanding them.</p>
+
+<blockquote><p><strong>Question 1:</strong> Are generators something like static variables in C?  Say, generateFibonacciNumber() is a generator.   First time I call generateFibonacciNumber() and iterate upto value 5, the next time I call  generateFibonacciNumber() will it start returning from value 8 when iterated?</p></blockquote>
+
+<p>This could sound like most dumb question on earth, but honestly I had this
+question having come from C background.</p>
+
+<p><strong>Answer:</strong>  No. Generators should not be confused with static variables in C.
+Every time a generator is called it will return a generator object and each has
+their own state variables.  So iterating one generator will not affect the other.</p>
+
+<blockquote><p><strong>Question 2:</strong> Creating multiple generators holding their reference and not iterating through them could potentially lead to memory exhaustion, correct?</p></blockquote>
+
+<p>Phew.  Yet another dumb question.</p>
+
+<p><strong>Answer:</strong> Obviously if you are going to hold the reference it is going to eat memory.
+But, that is not the problem of generators.  Let&rsquo;s take for example, to process
+a million lines of code we use a <em>generator</em> and a <em>normal function</em>.  At any point
+of time single generator object will hold only state variables and not the memory
+needed to hold all million lines.  But holding the value returned by a normal
+function is like holding million lines in the memory.  Compare holding multiple
+instances of state variables and multiple instance of million lines &ndash; the answer is obvious.</p>
+
+<h3>So, what is actually is a Generator?</h3>
+
+<p>To understand generator we&rsquo;ll have to understand what is <strong>iterator</strong> in python.</p>
+
+<p>In simple terms, <strong>iterator</strong> is a object having two methods <code>__iter__()</code> and <code>next()</code>.
+When iterators are using along with looping constructs like <code>for</code>, the <code>__iter__</code> and
+<code>next</code> methods are called implicitly.</p>
+
+<p>You can find more information on iterators <a href="https://docs.python.org/2/library/stdtypes.html#iterator-types">here</a>.</p>
+
+<blockquote><p>__iter__() : Returing itself</p>
+
+<p>next()  : Returning next item, or <strong>StopIteration</strong> exception on no further items.</p></blockquote>
+
+<p>```python
+class Iterator():
+  def <strong>init</strong>(self):</p>
+
+<pre><code>self.i = 0
+</code></pre>
+
+<p>  def <strong>iter</strong>(self):</p>
+
+<pre><code>return self
+</code></pre>
+
+<p>  def next(self):</p>
+
+<pre><code>if self.i &lt; 10:
+  self.i += 1
+  return self.i
+else:
+  raise StopIteration()
+</code></pre>
+
+<p>def main():
+  iterator = Iterator()
+  print type(iterator)
+  for i in iterator:</p>
+
+<pre><code>print i,
+</code></pre>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  main()
+```</p>
+
+<p>Executing this code will give us output as shown below,</p>
+
+<p><code>
+&lt;type 'instance'&gt;
+1 2 3 4 5 6 7 8 9 10
+</code></p>
+
+<p><strong>Generator</strong> is a special iterator.  We will not have to write a class with
+these methods, instead <code>yield</code> keyword can do all the <strong>magic</strong> for us.</p>
+
+<p>Now, let us rewrite the above code with generator.</p>
+
+<p>```python
+def generator():
+  i = 0
+  while i &lt; 10:</p>
+
+<pre><code>i += 1
+yield i
+</code></pre>
+
+<p>def main():
+  gen = generator()
+  print type(gen)
+  print dir(gen)
+  for i in gen:</p>
+
+<pre><code>print i,
+</code></pre>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  main()
+```</p>
+
+<p>Executing this code will give us output as shown below,</p>
+
+<p><code>
+&lt;type 'generator'&gt;
+['__class__', '__delattr__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__iter__', '__name__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'close', 'gi_code', 'gi_frame', 'gi_running', 'next', 'send', 'throw']
+1 2 3 4 5 6 7 8 9 10
+</code></p>
+
+<blockquote><p>Is that all?  Is generator just another method to create iterator?</p>
+
+<p>But according to the zen of python,</p>
+
+<p><em>&ldquo;There should be one&mdash; and preferably only one &mdash;obvious way to do it.&rdquo;</em></p></blockquote>
+
+<p>Hey look, <code>dir(generator)</code> is giving something more than what we would expect from a <code>dir(function)</code>.</p>
+
+<h3>Generator is more than just an iterator</h3>
+
+<p>Let us now dwell deep into generator, for which we&rsquo;ll have to understand <code>yield</code> keyword.</p>
+
+<p><code>yield</code> as just the literal meaning &ndash; relinquishes the control temporarily.</p>
+
+<p>Whenever a generator function is called, the actual code
+inside the function does not get executed.</p>
+
+<p>For example, the same code without iterating through items of generator.</p>
+
+<p>```python
+def generator():
+  print &lsquo;First line of generator&rsquo;
+  i = 0
+  while i &lt; 10:</p>
+
+<pre><code>i += 1
+yield i
+</code></pre>
+
+<p>def main():
+  print &lsquo;Before calling generator&rsquo;
+  gen = generator()
+  print &lsquo;After calling generator&rsquo;</p>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  main()
+```</p>
+
+<p>Output of this code will look like,</p>
+
+<p><code>
+Before calling generator
+After calling generator
+</code></p>
+
+<p>You can notice something.  <em>&ldquo;First line of generator&rdquo;</em> is
+not printed when generator is invoked.</p>
+
+<blockquote><p>This is how, generator is different from other functions.  Calling a generator
+function does not execute any code in the function, instead returns a generator
+object.</p>
+
+<p>So, when does actual code gets executed?</p>
+
+<p><strong>The actual code gets executed when the next() method is called.</strong></p></blockquote>
+
+<p>```python
+def generator():
+  print &lsquo;In generator() first line&rsquo;
+  i = 0
+  while i &lt; 10:</p>
+
+<pre><code>i += 1
+print 'In generator() before yield'
+yield i
+print 'In generator() after yield'
+</code></pre>
+
+<p>def main():
+  print &lsquo;In main() before calling generator()&rsquo;
+  gen = generator()
+  print &lsquo;In main() after calling generator()&rsquo;
+  print &lsquo;In main() before calling next()&rsquo;
+  gen.next()
+  print &lsquo;In main() after calling next()&rsquo;</p>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  main()
+```</p>
+
+<p>Output of this code will look like this,</p>
+
+<p><code>
+In main() before calling generator()
+In main() after calling generator()
+In main() before calling next()
+In generator() first line
+In generator() before yield
+In main() after calling next()
+</code></p>
+
+<blockquote><p>It is clear from the example above, that the code inside generator
+actually gets executed when next() method is called.</p>
+
+<p>One more thing to be noticed here is, the last line of generator
+<strong>&lsquo;In generator() after yield&rsquo;</strong> is not getting printed.</p>
+
+<p>The execution resumes from this point when next() method of the generator
+object is called the next time.</p></blockquote>
+
+<p>The code snippet below explains this control flow.</p>
+
+<p>```python
+def generator():
+  print &lsquo;In generator() first line&rsquo;
+  i = 0
+  while i &lt; 10:</p>
+
+<pre><code>i += 1
+print 'In generator() before yield'
+yield i
+print 'In generator() after yield'
+</code></pre>
+
+<p>def main():
+  print &lsquo;In main() before calling generator()&rsquo;
+  gen = generator()
+  print &lsquo;In main() after calling generator()&rsquo;
+  print &lsquo;In main() before calling next()&rsquo;
+  gen.next()
+  print &lsquo;In main() after calling next()&rsquo;
+  print &lsquo;In main() before calling next() second time&rsquo;
+  gen.next()
+  print &lsquo;In main() after calling next() second time&rsquo;</p>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  main()
+```</p>
+
+<p>Output of this code will be,</p>
+
+<p><code>
+In main() before calling generator()
+In main() after calling generator()
+In main() before calling next()
+In generator() first line
+In generator() before yield
+In main() after calling next()
+In main() before calling next() second time
+In generator() after yield
+In generator() before yield
+In main() after calling next() second time
+</code></p>
+
+<h3>So, when to use generator and when to use iterable?</h3>
+
+<p>Any iterable can be replaced with a generator but converse is not true.</p>
+
+<p>Generators are preferred for two reasons,</p>
+
+<ol>
+<li>When dealing with large sequence</li>
+<li>When the end point of the sequence is not known beforehand</li>
+</ol>
+
+
+<p>Thats all about generators in Python.  Happy hacking.</p>
+]]></content>
+  </entry>
+  
+</feed>
