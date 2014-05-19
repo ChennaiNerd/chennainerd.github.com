@@ -3,6 +3,7 @@ layout: post
 title: "Must watch videos for Entrepreneurs from Guy Kawasaki"
 date: 2014-05-10 11:24:24 +0530
 comments: true
+author: Fizer Khan
 categories: startup
 ---
 

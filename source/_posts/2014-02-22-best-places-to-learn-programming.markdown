@@ -3,6 +3,7 @@ layout: post
 title: "Best Places to learn programming"
 date: 2014-02-22 17:09:55 +0530
 comments: true
+author: Fizer Khan
 categories:
 ---
 

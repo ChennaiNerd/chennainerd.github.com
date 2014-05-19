@@ -3,7 +3,7 @@ layout: post
 title: "I am a C programmer. Why i love AngularJS?"
 date: 2014-02-22 19:01:42 +0530
 comments: true
-author: Yogeeswaran
+author: Yogeswaran
 categories: ["angularjs", "javascript", "html"]
 ---
 

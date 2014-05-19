@@ -3,7 +3,8 @@ layout: post
 title: "Tips for fasten your workflow in terminal"
 date: 2014-02-18 18:00:13 +0530
 comments: true
-categories: Bash
+author: Fizer Khan
+categories: bash
 ---
 
 Without a doubt and question, Terminal is home for all programmers.

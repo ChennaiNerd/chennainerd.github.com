@@ -3,6 +3,7 @@ layout: post
 title: "Generators in Python"
 date: 2014-05-19 11:01:58 +0530
 comments: true
+author: Yogeswaran
 categories: python
 ---
 
