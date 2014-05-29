@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cron | Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/blog/categories/cron/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:11:06+05:30</updated>
+  <updated>2014-05-29T12:17:56+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -34,17 +34,17 @@ in <code>Google Compute Engine</code>. It is not feasible for us.</p>
 Finally we move to <code>Openshift</code> to deploy our application. Following are the
 steps to configure cron scripts in <code>Openshift</code>.</p>
 
-<ol>
+<ul>
 <li><p>Add CRON cartridge in your application</p>
 
-<p> rhc cartridge add cron-1.4 -a application_name</p></li>
-</ol>
+<p>  rhc cartridge add cron-1.4 -a application_name</p></li>
+</ul>
 
 
 <p><code>rhc</code> is a command line tool to control the <code>Openshift</code> application.</p>
 
-<ol>
-<li><p>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Sample python scripts</p>
+<ul>
+<li><p>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Here is the sample python scripts.</p>
 
 <p>  #!/bin/bash</p>
 
@@ -56,10 +56,12 @@ steps to configure cron scripts in <code>Openshift</code>.</p>
 
 <p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
   date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log</p></li>
-</ol>
+</ul>
 
 
-<p>And that&rsquo;s all there is to it!</p>
+<p>You have to activate the virtual environment in your script.</p>
+
+<p>And that&rsquo;s all there is to it! Have a nice day.</p>
 ]]></content>
   </entry>
   
