@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:25:31+05:30</updated>
+  <updated>2014-05-29T12:26:13+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -34,9 +34,9 @@ in <code>Google Compute Engine</code>. It is not feasible for us.</p>
 Finally we move to <code>Openshift</code> to deploy our application. Following are the
 steps to configure cron scripts in <code>Openshift</code>.</p>
 
-<ul>
+<ol>
 <li>Add CRON cartridge in your application</li>
-</ul>
+</ol>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -45,9 +45,9 @@ steps to configure cron scripts in <code>Openshift</code>.</p>
 
 <p><code>rhc</code> is a command line tool to control the <code>Openshift</code> application.</p>
 
-<ul>
+<ol>
 <li>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Here is the sample python scripts.</li>
-</ul>
+</ol>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
