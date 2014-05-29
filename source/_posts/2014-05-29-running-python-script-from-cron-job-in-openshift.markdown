@@ -22,25 +22,27 @@ We also play with `Heroku` which does not work well for us.
 Finally we move to `Openshift` to deploy our application. Following are the
 steps to configure cron scripts in `Openshift`.
 
-1. Add CRON cartridge in your application
+* Add CRON cartridge in your application
 
     rhc cartridge add cron-1.4 -a application_name
 
 `rhc` is a command line tool to control the `Openshift` application.
 
-2. Place your cron scripts to your application's `.openshift/cron/{minutely,hourly,daily,weekly,monthly}/` folder. Sample python scripts
+* Place your cron scripts to your application's `.openshift/cron/{minutely,hourly,daily,weekly,monthly}/` folder. Here is the sample python scripts.
 
-     #!/bin/bash
+    #!/bin/bash
 
-     echo "************ Cronny Started ***************"
-     date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log
+    echo "************ Cronny Started ***************"
+    date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log
 
-     source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
-     python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py
+    source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
+    python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py
 
-     echo "************ Cronny Executed ***************"
-     date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
+    echo "************ Cronny Executed ***************"
+    date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
 
-And that's all there is to it!
+You have to activate the virtual environment in your script.
+
+And that's all there is to it! Have a nice day.
 
 
