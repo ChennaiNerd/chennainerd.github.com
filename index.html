@@ -9,8 +9,8 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="One of the few obscure feature of python (for the beginners) is Generators.
-In this post I would like to share few naive questions I had about &hellip;">
+  <meta name="description" content="Openshift is one of the amazing PAAS service where you can deploy
+your application in a very simple steps. It also provides Free gear for developer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +94,83 @@ In this post I would like to share few naive questions I had about &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">Running Python Script From Cron Job in Openshift</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-29T11:47:37+05:30" pubdate data-updated="true">May 29<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>Openshift</code> is one of the amazing PAAS service where you can deploy
+your application in a very simple steps. It also provides Free gear for developer.
+So you can deploy your hack without providing credit card information for zero dollar.</p>
+
+<p>Our application stack is Python Flask, MongoDB, Angular.js and some CRON scripts.
+We wanted to deploy our application in some PAAS which has CRON support.</p>
+
+<p>First We choose <code>Google App Engine</code> since it supports CRON jobs.
+Unfortunately Google App Engine does not allow us to connect external MongoDB
+database like MongoHQ and MongoLab. Only solution is to create MongoDB instance
+in <code>Google Compute Engine</code>. It is not feasible for us.</p>
+
+<p>We also play with <code>Heroku</code> which does not work well for us.
+Finally we move to <code>Openshift</code> to deploy our application. Following are the
+steps to configure cron scripts in <code>Openshift</code>.</p>
+
+<ol>
+<li><p>Add CRON cartridge in your application</p>
+
+<p> rhc cartridge add cron-1.4 -a application_name</p></li>
+</ol>
+
+
+<p><code>rhc</code> is a command line tool to control the <code>Openshift</code> application.</p>
+
+<ol>
+<li><p>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Sample python scripts</p>
+
+<p>  #!/bin/bash</p>
+
+<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Started </strong></strong></strong></strong></strong></strong>***&rdquo;
+  date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log</p>
+
+<p>  source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
+  python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py</p>
+
+<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
+  date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log</p></li>
+</ol>
+
+
+<p>And that&rsquo;s all there is to it!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1003,6 +1080,10 @@ Happy hacking.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">Running Python script from Cron job in Openshift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/19/generators-in-python/">Generators in Python</a>
       </li>
     
@@ -1016,10 +1097,6 @@ Happy hacking.</p>
     
       <li class="post">
         <a href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/">I am a C programmer. Why i love AngularJS?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/22/best-places-to-learn-programming/">Best Places to learn programming</a>
       </li>
     
   </ul>

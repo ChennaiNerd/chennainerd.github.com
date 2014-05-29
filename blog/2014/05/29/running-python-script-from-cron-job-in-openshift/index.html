@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: javascript - Chennai Nerd</title>
+  <title>Running Python script from Cron job in Openshift - Chennai Nerd</title>
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="Category: javascript">
+  <meta name="description" content="Openshift is one of the amazing PAAS service where you can deploy
+your application in a very simple steps. It also provides Free gear for developer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.chennainerd.inblog/categories/javascript/">
+  <link rel="canonical" href="http://www.chennainerd.in/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -92,36 +93,132 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Javascript</h1>
+    
+      <h1 class="entry-title">Running Python Script From Cron Job in Openshift</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-29T11:47:37+05:30" pubdate data-updated="true">May 29<span>th</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p><code>Openshift</code> is one of the amazing PAAS service where you can deploy
+your application in a very simple steps. It also provides Free gear for developer.
+So you can deploy your hack without providing credit card information for zero dollar.</p>
 
-  
-  <h2>2014</h2>
+<p>Our application stack is Python Flask, MongoDB, Angular.js and some CRON scripts.
+We wanted to deploy our application in some PAAS which has CRON support.</p>
 
-<article>
-  
-<h1><a href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/">I am a C programmer. Why i love AngularJS?</a></h1>
-<time datetime="2014-02-22T19:01:42+05:30" pubdate><span class='month'>Feb</span> <span class='day'>22</span> <span class='year'>2014</span></time>
+<p>First We choose <code>Google App Engine</code> since it supports CRON jobs.
+Unfortunately Google App Engine does not allow us to connect external MongoDB
+database like MongoHQ and MongoLab. Only solution is to create MongoDB instance
+in <code>Google Compute Engine</code>. It is not feasible for us.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/html/'>html</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a></span>
-</footer>
+<p>We also play with <code>Heroku</code> which does not work well for us.
+Finally we move to <code>Openshift</code> to deploy our application. Following are the
+steps to configure cron scripts in <code>Openshift</code>.</p>
+
+<ol>
+<li><p>Add CRON cartridge in your application</p>
+
+<p> rhc cartridge add cron-1.4 -a application_name</p></li>
+</ol>
 
 
-</article>
+<p><code>rhc</code> is a command line tool to control the <code>Openshift</code> application.</p>
 
+<ol>
+<li><p>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Sample python scripts</p>
+
+<p>  #!/bin/bash</p>
+
+<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Started </strong></strong></strong></strong></strong></strong>***&rdquo;
+  date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log</p>
+
+<p>  source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
+  python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py</p>
+
+<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
+  date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log</p></li>
+</ol>
+
+
+<p>And that&rsquo;s all there is to it!</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Chennai Nerd</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-29T11:47:37+05:30" pubdate data-updated="true">May 29<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cron/'>cron</a>, <a class='category' href='/blog/categories/openshift/'>openshift</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.chennainerd.in/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/" data-via="" data-counturl="http://www.chennainerd.in/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/19/generators-in-python/" title="Previous Post: Generators in Python">&laquo; Generators in Python</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -176,7 +273,10 @@
       var disqus_shortname = 'chennainerd';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.chennainerd.in/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/';
+        var disqus_url = 'http://www.chennainerd.in/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
