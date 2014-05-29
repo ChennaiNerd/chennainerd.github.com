@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:26:13+05:30</updated>
+  <updated>2014-05-29T12:26:53+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -71,8 +71,6 @@ steps to configure cron scripts in <code>Openshift</code>.</p>
 </span><span class='line'>echo "************ Cronny Executed ***************"
 </span><span class='line'>date &gt;&gt; ${OPENSHIFT_DATA_DIR}/ticktock-end.log</span></code></pre></td></tr></table></div></figure>
 
-
-<p>You have to activate the virtual environment in your script.</p>
 
 <p>And that&rsquo;s all there is to it! Have a nice day.</p>
 ]]></content>

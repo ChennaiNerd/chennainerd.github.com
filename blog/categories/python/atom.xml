@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:26:13+05:30</updated>
+  <updated>2014-05-29T12:26:53+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -63,8 +63,6 @@ python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py</p>
 <p>echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
 date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
 ```</p>
-
-<p>You have to activate the virtual environment in your script.</p>
 
 <p>And that&rsquo;s all there is to it! Have a nice day.</p>
 ]]></content>
