@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:18:13+05:30</updated>
+  <updated>2014-05-29T12:25:31+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -35,29 +35,34 @@ Finally we move to <code>Openshift</code> to deploy our application. Following a
 steps to configure cron scripts in <code>Openshift</code>.</p>
 
 <ul>
-<li><p>Add CRON cartridge in your application</p>
-
-<p>  rhc cartridge add cron-1.4 -a application_name</p></li>
+<li>Add CRON cartridge in your application</li>
 </ul>
 
+
+<p><code>
+rhc cartridge add cron-1.4 -a application_name
+</code></p>
 
 <p><code>rhc</code> is a command line tool to control the <code>Openshift</code> application.</p>
 
 <ul>
-<li><p>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Here is the sample python scripts.</p>
-
-<p>  #!/bin/bash</p>
-
-<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Started </strong></strong></strong></strong></strong></strong>***&rdquo;
-  date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log</p>
-
-<p>  source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
-  python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py</p>
-
-<p>  echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
-  date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log</p></li>
+<li>Place your cron scripts to your application&rsquo;s <code>.openshift/cron/{minutely,hourly,daily,weekly,monthly}/</code> folder. Here is the sample python scripts.</li>
 </ul>
 
+
+<p>```</p>
+
+<h1>!/bin/bash</h1>
+
+<p>echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Started </strong></strong></strong></strong></strong></strong>***&rdquo;
+date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log</p>
+
+<p>source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
+python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py</p>
+
+<p>echo &ldquo;<strong><strong><strong><strong><strong><strong> Cronny Executed </strong></strong></strong></strong></strong></strong>***&rdquo;
+date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
+```</p>
 
 <p>You have to activate the virtual environment in your script.</p>
 
