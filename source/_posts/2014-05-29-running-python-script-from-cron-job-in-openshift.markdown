@@ -24,24 +24,26 @@ steps to configure cron scripts in `Openshift`.
 
 * Add CRON cartridge in your application
 
-    rhc cartridge add cron-1.4 -a application_name
+```
+rhc cartridge add cron-1.4 -a application_name
+```
 
 `rhc` is a command line tool to control the `Openshift` application.
 
 * Place your cron scripts to your application's `.openshift/cron/{minutely,hourly,daily,weekly,monthly}/` folder. Here is the sample python scripts.
 
-    #!/bin/bash
+```
+#!/bin/bash
 
-    echo "************ Cronny Started ***************"
-    date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log
+echo "************ Cronny Started ***************"
+date >> ${OPENSHIFT_DATA_DIR}/ticktock-start.log
 
-    source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
-    python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py
+source ${OPENSHIFT_HOMEDIR}/python/virtenv/bin/activate
+python ${OPENSHIFT_REPO_DIR}/wsgi/crawler.py
 
-    echo "************ Cronny Executed ***************"
-    date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
-
-You have to activate the virtual environment in your script.
+echo "************ Cronny Executed ***************"
+date >> ${OPENSHIFT_DATA_DIR}/ticktock-end.log
+```
 
 And that's all there is to it! Have a nice day.
 

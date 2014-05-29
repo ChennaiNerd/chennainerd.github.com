@@ -7,7 +7,7 @@ Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</s
 
 ### Create and Preview
 
-    rvm use ruby-1.9.3-p484               (Optional. Needed only when you have <=ruby1.8)
+    rvm use ruby-1.9.3-p484               (Optional. Needed only when you have <=ruby 1.8)
     rake new_post["title of the blog"]
     rake preview
 
@@ -27,7 +27,7 @@ If you are new user, then run below command before above two commands
 
 CAUTION: When you push changes, push it to source branch alone
 
-         git push origin source
+    git push origin source
 
 ## License
 
