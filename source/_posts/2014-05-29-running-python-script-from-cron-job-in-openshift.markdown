@@ -3,6 +3,7 @@ layout: post
 title: "Running Python script from Cron job in Openshift"
 date: 2014-05-29 11:47:37 +0530
 comments: true
+author: Fizer Khan
 categories: ["python", "cron", "openshift"]
 ---
 
