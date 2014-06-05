@@ -10,7 +10,7 @@ categories: openshift
 You may want to schedule backups of your `openshift` application daily, weekly, or monthly.
 It can be done in two simple steps
 
-1. Create backup application
+### 1.Create a backup application
 
 First we need to spin up a backup application
 
@@ -18,7 +18,7 @@ First we need to spin up a backup application
 
 Once it is created, it will give your username and password. Please make a note of it.
 
-2. Create a backup cartridge
+### 2.Create a backup cartridge
 
 Then you have to add backup cartridge to the application for which you want to take backup.
 
