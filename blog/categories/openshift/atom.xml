@@ -4,7 +4,7 @@
   <title><![CDATA[Category: openshift | Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/blog/categories/openshift/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-05-29T12:29:29+05:30</updated>
+  <updated>2014-06-05T21:54:24+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Backup of Openshift Application]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/06/05/backup-of-openshift-application/"/>
+    <updated>2014-06-05T21:43:40+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/06/05/backup-of-openshift-application</id>
+    <content type="html"><![CDATA[<p>You may want to schedule backups of your <code>openshift</code> application daily, weekly, or monthly.
+It can be done in two simple steps</p>
+
+<ol>
+<li>Create backup application</li>
+</ol>
+
+
+<p>First we need to spin up a backup application</p>
+
+<pre><code>rhc app create osbs https://raw.githubusercontent.com/wshearn/openshift-cartridge-osbs/master/metadata/manifest.yml http://tinyurl.com/OpenShiftRedisCart cron --no-git
+</code></pre>
+
+<p>Once it is created, it will give your username and password. Please make a note of it.</p>
+
+<ol>
+<li>Create a backup cartridge</li>
+</ol>
+
+
+<p>Then you have to add backup cartridge to the application for which you want to take backup.</p>
+
+<pre><code>rhc cartridge add -a &lt;application to backup&gt; -c https://raw.githubusercontent.com/wshearn/openshift-cartridge-osbs-client/master/metadata/manifest.yml
+</code></pre>
+
+<p>Once it is done, you can login with username and password(that you got in previous step) in the following URL and schedule the backups.</p>
+
+<pre><code> http://osbs-&lt;your_namespace&gt;.rhcloud.com
+</code></pre>
+
+<p>Hope it helps. Have a nice day.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Running Python script from Cron job in Openshift]]></title>
