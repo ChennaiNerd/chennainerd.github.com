@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Want to automate things? Have a glance on Sikuli! - Chennai Nerd</title>
+  <title>Deployed my static site before my friend finished peeing - Chennai Nerd</title>
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="You want to automate some repetitive tasks in daily usage of applications or
-web pages, games or IT systems and networks etc., and you do not
-have &hellip;">
+  <meta name="description" content="Building and Deploying static sites becomes easier and simpler than never before.
+I see lot of people buying servers and setting up cdn for deploying &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ have &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.chennainerd.in/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/">
+  <link rel="canonical" href="http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -98,7 +97,7 @@ have &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Want to Automate Things? Have a Glance on Sikuli!</h1>
+      <h1 class="entry-title">Deployed My Static Site Before My Friend Finished Peeing</h1>
     
     
       <p class="meta">
@@ -114,77 +113,110 @@ have &hellip;">
   
 
 
-<time datetime="2014-03-31T15:14:47+05:30" pubdate data-updated="true">Mar 31<span>st</span>, 2014</time>
+<time datetime="2014-06-07T16:50:50+05:30" pubdate data-updated="true">Jun 7<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>You want to automate some repetitive tasks in daily usage of applications or
-web pages, games or IT systems and networks etc., and you do not
-have adequate tools in hand.</p>
+<div class="entry-content"><p>Building and Deploying static sites becomes easier and simpler than never before.
+I see lot of people buying servers and setting up <code>cdn</code> for deploying
+sites which may be company sites, personal sites or blogs. I also see people
+deploying the sites in S3 which is quiter easier than setting up the server.</p>
 
-<p>Then you are at the right place now. Just give a try for Sikuli, a simple tool
-for GUI automation. Sikuli can automate any computer operations based on screen shots.</p>
+<p>But there is also way to deploy your static sites simpler than above methods.
+It is <a href="http://www.divshot.com/">Divshot</a> Hosting.
+I deployed my personal blog before my friend finished peeing.
+Lets see how i did it.</p>
 
-<h2>Sikuli Installation steps</h2>
+<h3>Signup for Divshot</h3>
 
-<h4>Step 1: Download the following from <a href="https://launchpad.net/sikuli/+download">https://launchpad.net/sikuli/+download</a></h4>
+<p>Go to <a href="http://www.divshot.com">http://www.divshot.com</a> and Signup for the service.</p>
 
-<pre><code>Sikuli-1.0.1-Supplemental-LinuxVisionProxy.zip (md5)
-sikuli-setup.jar (md5)
+<h3>Install Divshot client tool</h3>
+
+<pre><code>$ npm install -g divshot-cli
 </code></pre>
 
-<h4>Step 2: Install dependencies</h4>
+<h3>Login to Divshot</h3>
 
-<p>Ubuntu users: Install the below packages (Dependencies for Sikuli)</p>
-
-<pre><code>sudo apt-get install openjdk-7-jdk
-sudo apt-get install libopencv-dev
-sudo apt-get install libtesseract-dev
+<pre><code>$ divshot login
 </code></pre>
 
-<p>Unzip the .zip file and follow the readme steps to build a new <code>libvisionproxy.so</code> file.</p>
+<h3>Create your app directory and place your static files</h3>
 
-<p>Windows users: Install java jre 7</p>
-
-<h4>Step 3: Install Sikuli using the jar file.</h4>
-
-<p>Run the <code>Sikuli-setup.jar</code> by setting the executable bit if not set
-on it and use the command:</p>
-
-<pre><code>java -jar sikuli-setup.jar
+<pre><code>$ mkdir app-name
+$ cd app-name
 </code></pre>
 
-<p>Ubuntu users should replace the newly generated <code>libvisionproxy.so</code> with the
-existing one in <code>&lt;Sikuli_installed_folder&gt;/libs/</code> location.</p>
+<p>Lets say you are going to have your static assets inside <code>public</code> folder as below</p>
 
-<h4>Step 4: Launch the Sikuli IDE using the command.</h4>
-
-<pre><code>cd &lt;Sikuli_installed_folder&gt;
-runIDE.cmd (for windows users)
-./runIDE (for Ubuntu users)
+<pre><code>app-name/
+  public/
+    css/
+      main.css
+    js/
+      main.js
+    index.html
+    about.html
+    contact.html
 </code></pre>
 
-<h4>Step 5: Run the Sikuli tests from command line using the command:</h4>
+<h3>Create divshot configuration file</h3>
 
-<pre><code>runIDE.cmd –r &lt;sikuli_test_name.sikuli&gt;    (for windows users)
-./runIDE –r &lt;sikuli_test_name.sikuli&gt;      (for Ubuntu users)
+<p>Once you&rsquo;re in your new application&rsquo;s directory, you can initialize a new Divshot
+application by using the <code>divshot init</code> command. This will walk you step by step
+through some basic configuration options for your app, then create a <code>divshot.json</code>
+file and provision your new app.</p>
+
+<pre><code>$ divshot init
 </code></pre>
 
-<h3>Sample Sikuli code snippet:</h3>
+<p>It will ask you following information</p>
 
-<p>Say you want to automate the following: launch a notepad, type some text and save it.</p>
+<pre><code>name: (app-name) app-name
+root directory: (current) public
+clean urls: (y/n) y
+error page: (error.html)
+Would you like to create a Divshot.io app from this app?: (y/n) y
+Creating app ...
+Success: app-name has been created
+Success: App initiated
+</code></pre>
 
-<p>Below is the sample code written in Sikuli IDE.</p>
+<h3>Deploy just like git push</h3>
 
-<p><img src="http://i.imgur.com/qtvxGOA.png" alt="Sikuli" /></p>
+<p>To deploy to the development environment, all you need to do is run:</p>
 
-<p>The same code snippet trying to open a diffent app say gedit, should work seamlessly in Ubuntu.
-For web browser based automation, wait for my next blog on Selenium.</p>
+<pre><code>$ divshot push
+</code></pre>
 
-<p>Happy automation folks !!!</p>
+<p>Once your app is deployed successfully,
+You can view your app at: <a href="http://development.app-name.divshot.io">http://development.app-name.divshot.io</a></p>
+
+<p>You can also deploy in production by</p>
+
+<pre><code>$ divshot push production
+
+(or)
+
+$ divshot promote development production
+</code></pre>
+
+<p>Once you app is deployed in <code>production</code> environment, You can view your app at: <a href="http://app-name.divshot.io">http://app-name.divshot.io</a></p>
+
+<h3>Setting your custom domain</h3>
+
+<p>Once your application is ready, you can set custom domain configuration in divshot.</p>
+
+<pre><code>$ divshot domains:add www.myapp.com
+</code></pre>
+
+<p>You also need to set <code>CNAME</code> record with your DNS provider.
+Refer <a href="http://docs.divshot.com/">Divshot Documentation</a> for more details.</p>
+
+<p>Happy Hosting and Have a nice day.</p>
 </div>
 
 
@@ -193,7 +225,7 @@ For web browser based automation, wait for my next blog on Selenium.</p>
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">Karthik</span></span>
+<span class="byline author vcard">Posted by <span class="fn">Fizer Khan</span></span>
 
       
 
@@ -207,15 +239,21 @@ For web browser based automation, wait for my next blog on Selenium.</p>
   
 
 
-<time datetime="2014-03-31T15:14:47+05:30" pubdate data-updated="true">Mar 31<span>st</span>, 2014</time>
+<time datetime="2014-06-07T16:50:50+05:30" pubdate data-updated="true">Jun 7<span>th</span>, 2014</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/divshot/'>divshot</a>, <a class='category' href='/blog/categories/hosting/'>hosting</a>, <a class='category' href='/blog/categories/static-site/'>static site</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.chennainerd.in/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/" data-via="" data-counturl="http://www.chennainerd.in/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/" data-via="" data-counturl="http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/" >Tweet</a>
   
   
   
@@ -224,10 +262,8 @@ For web browser based automation, wait for my next blog on Selenium.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/" title="Previous Post: I am a C programmer. Why i love AngularJS?">&laquo; I am a C programmer. Why i love AngularJS?</a>
+        <a class="basic-alignment left" href="/blog/2014/06/05/backup-of-openshift-application/" title="Previous Post: Backup of Openshift Application">&laquo; Backup of Openshift Application</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/05/10/must-watch-videos-for-entrepreneurs-from-guy-kawasaki/" title="Next Post: Must watch videos for Entrepreneurs from Guy Kawasaki">Must watch videos for Entrepreneurs from Guy Kawasaki &raquo;</a>
       
     </p>
   </footer>
@@ -293,8 +329,8 @@ For web browser based automation, wait for my next blog on Selenium.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.chennainerd.in/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/';
-        var disqus_url = 'http://www.chennainerd.in/blog/2014/03/31/want-to-automate-things-have-a-glance-on-sikuli/';
+        var disqus_identifier = 'http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/';
+        var disqus_url = 'http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-06-05T21:59:31+05:30</updated>
+  <updated>2014-06-07T18:02:54+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -12,6 +12,111 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Deployed my static site before my friend finished peeing]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/"/>
+    <updated>2014-06-07T16:50:50+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing</id>
+    <content type="html"><![CDATA[<p>Building and Deploying static sites becomes easier and simpler than never before.
+I see lot of people buying servers and setting up <code>cdn</code> for deploying
+sites which may be company sites, personal sites or blogs. I also see people
+deploying the sites in S3 which is quiter easier than setting up the server.</p>
+
+<p>But there is also way to deploy your static sites simpler than above methods.
+It is <a href="http://www.divshot.com/">Divshot</a> Hosting.
+I deployed my personal blog before my friend finished peeing.
+Lets see how i did it.</p>
+
+<h3>Signup for Divshot</h3>
+
+<p>Go to <a href="http://www.divshot.com">http://www.divshot.com</a> and Signup for the service.</p>
+
+<h3>Install Divshot client tool</h3>
+
+<pre><code>$ npm install -g divshot-cli
+</code></pre>
+
+<h3>Login to Divshot</h3>
+
+<pre><code>$ divshot login
+</code></pre>
+
+<h3>Create your app directory and place your static files</h3>
+
+<pre><code>$ mkdir app-name
+$ cd app-name
+</code></pre>
+
+<p>Lets say you are going to have your static assets inside <code>public</code> folder as below</p>
+
+<pre><code>app-name/
+  public/
+    css/
+      main.css
+    js/
+      main.js
+    index.html
+    about.html
+    contact.html
+</code></pre>
+
+<h3>Create divshot configuration file</h3>
+
+<p>Once you&rsquo;re in your new application&rsquo;s directory, you can initialize a new Divshot
+application by using the <code>divshot init</code> command. This will walk you step by step
+through some basic configuration options for your app, then create a <code>divshot.json</code>
+file and provision your new app.</p>
+
+<pre><code>$ divshot init
+</code></pre>
+
+<p>It will ask you following information</p>
+
+<pre><code>name: (app-name) app-name
+root directory: (current) public
+clean urls: (y/n) y
+error page: (error.html)
+Would you like to create a Divshot.io app from this app?: (y/n) y
+Creating app ...
+Success: app-name has been created
+Success: App initiated
+</code></pre>
+
+<h3>Deploy just like git push</h3>
+
+<p>To deploy to the development environment, all you need to do is run:</p>
+
+<pre><code>$ divshot push
+</code></pre>
+
+<p>Once your app is deployed successfully,
+You can view your app at: <a href="http://development.app-name.divshot.io">http://development.app-name.divshot.io</a></p>
+
+<p>You can also deploy in production by</p>
+
+<pre><code>$ divshot push production
+
+(or)
+
+$ divshot promote development production
+</code></pre>
+
+<p>Once you app is deployed in <code>production</code> environment, You can view your app at: <a href="http://app-name.divshot.io">http://app-name.divshot.io</a></p>
+
+<h3>Setting your custom domain</h3>
+
+<p>Once your application is ready, you can set custom domain configuration in divshot.</p>
+
+<pre><code>$ divshot domains:add www.myapp.com
+</code></pre>
+
+<p>You also need to set <code>CNAME</code> record with your DNS provider.
+Refer <a href="http://docs.divshot.com/">Divshot Documentation</a> for more details.</p>
+
+<p>Happy Hosting and Have a nice day.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Backup of Openshift Application]]></title>
