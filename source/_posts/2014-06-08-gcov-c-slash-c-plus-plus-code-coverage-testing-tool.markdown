@@ -4,7 +4,7 @@ title: "GCOV - C/C++ Code coverage testing tool"
 date: 2014-06-08 11:39:18 +0530
 comments: true
 author: Yogeswaran
-categories:["code coverage", "c", "c++"]
+categories: ["code coverage", "c", "c++"]
 ---
 
 ## What is GCOV
@@ -36,8 +36,7 @@ the uncovered area in the code.
 
 ## Instrumenting GCOV
 
-GCOV does not require any change in the code.  
-The only requirement is to have the code built with **-fprofile-arcs** and
+GCOV does not require any change in the code. The only requirement is to have the code built with **-fprofile-arcs** and
 **-ftest-coverage**  compiler and linker flags.
 
 ```
@@ -74,8 +73,7 @@ gcov:
 
 >CFLAGS += -fprofile-arcs -ftest-coverage
 
-`CFLAGS` are meant to be used during compilation.  
-This will create `.gcno` file corresponding to `.c/.cpp` file
+`CFLAGS` are meant to be used during compilation. This will create `.gcno` file corresponding to `.c/.cpp` file
 
 ```
 yogi@u32:~/gcov_basics$ make obj
@@ -163,13 +161,14 @@ Legend:
 
 **gcovr** is a python utility on top of gcov.  It can be installed using pip.
 
-```shell
+```
 $ pip install gcovr
 ```
 
 ```
 yogi@u32:~/gcov_basics$ gcovr -r . --html -o coverage.html --html-details
 ```
+
 The above command will generate coverage report in html format.
 
 ## Cool features
@@ -200,75 +199,78 @@ The above command will generate coverage report in html format.
 But the problem could be when used on embedded platforms, where the filesystem is mostly readonly.
 In this case, **GCOV_PREFIX** enviromental variable can be used.
 
-  ```
-  yogi@u32:~/gcov_basics$ make
-  gcc -fprofile-arcs -ftest-coverage -c coverage.c
-  gcc -fprofile-arcs -ftest-coverage *.o -o cov
+```
+yogi@u32:~/gcov_basics$ make
+gcc -fprofile-arcs -ftest-coverage -c coverage.c
+gcc -fprofile-arcs -ftest-coverage *.o -o cov
 
-  Note: Copying the executable to /tmp folder
+Note: Copying the executable to /tmp folder
 
-  yogi@u32:~/gcov_basics$ cp cov /tmp/
-  yogi@u32:~/gcov_basics$ ls -l
-  total 36
-  -rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
-  -rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
-  -rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
-  -rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
-  -rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
-  yogi@u32:~/gcov_basics$ cd /tmp/
-  yogi@u32:/tmp$ ./cov
-  True
-  yogi@u32:/tmp$ find . -name "*.gcda"
+yogi@u32:~/gcov_basics$ cp cov /tmp/
+yogi@u32:~/gcov_basics$ ls -l
+total 36
+-rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
+-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+-rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
+-rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
+-rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
+yogi@u32:~/gcov_basics$ cd /tmp/
+yogi@u32:/tmp$ ./cov
+True
+yogi@u32:/tmp$ find . -name "*.gcda"
 
-  Note: gcda file will not get created in the current working directory, instead
-  will be created in the same folder structure as it got compiled.
+Note: gcda file will not get created in the current working directory, instead
+will be created in the same folder structure as it got compiled.
 
-  yogi@u32:/tmp$ cd -
-  /home/yogi/gcov_basics
+yogi@u32:/tmp$ cd -
+/home/yogi/gcov_basics
 
-  Note: gcda file getting created where the code was actually compiled.
+Note: gcda file getting created where the code was actually compiled.
 
-  yogi@u32:~/gcov_basics$ ls -l
-  total 40
-  -rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
-  -rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
-  -rw-rw-r-- 1 yogi yogi     160 Jun  8 07:30 coverage.gcda
-  -rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
-  -rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
-  -rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
-  yogi@u32:~/gcov_basics$
-  yogi@u32:~/gcov_basics$ export GCOV_PREFIX=/tmp
-  yogi@u32:~/gcov_basics$ rm coverage.gcda
-  yogi@u32:~/gcov_basics$ cd -
-  /tmp
-  yogi@u32:/tmp$ ./cov
-  True
+yogi@u32:~/gcov_basics$ ls -l
+total 40
+-rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
+-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+-rw-rw-r-- 1 yogi yogi     160 Jun  8 07:30 coverage.gcda
+-rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
+-rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
+-rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
+yogi@u32:~/gcov_basics$
+yogi@u32:~/gcov_basics$ export GCOV_PREFIX=/tmp
+yogi@u32:~/gcov_basics$ rm coverage.gcda
+yogi@u32:~/gcov_basics$ cd -
+/tmp
+yogi@u32:/tmp$ ./cov
+True
 
-  Note: By setting GCOV_PREFIX environmental variable we'll be able to direct
-  the files to a particular base folder.
+Note: By setting GCOV_PREFIX environmental variable we'll be able to direct
+the files to a particular base folder.
 
-  yogi@u32:/tmp$ ls -l /tmp/home/yogi/gcov_basics/coverage.gcda
-  -rw-rw-r-- 1 yogi yogi 160 Jun  8 07:31 /tmp/home/yogi/gcov_basics/coverage.gcda
-  ```
+yogi@u32:/tmp$ ls -l /tmp/home/yogi/gcov_basics/coverage.gcda
+-rw-rw-r-- 1 yogi yogi 160 Jun  8 07:31 /tmp/home/yogi/gcov_basics/coverage.gcda
+```
+
 - **GCOV_PREFIX_STRIP** environmental variable can be handy when we are not interested in complete folder structure but to remove certain part of it.
-  ```
-  yogi@u32:/tmp$ export GCOV_PREFIX=/tmp
-  yogi@u32:/tmp$ export GCOV_PREFIX_STRIP=2
-  yogi@u32:/tmp$ ./cov
-  True
 
-  Note:  Earlier .gcda file was getting created in /tmp/home/yogi/gcov_basics/ folder.
-  Now by exporting GCOV_PREFIX_STRIP=2 environmental variable, will strip two levels - /home/yogi/ folder
-  is stripped off and .gcda file will get create in /tmp/gcov_basics/
+```
+yogi@u32:/tmp$ export GCOV_PREFIX=/tmp
+yogi@u32:/tmp$ export GCOV_PREFIX_STRIP=2
+yogi@u32:/tmp$ ./cov
+True
 
-  yogi@u32:/tmp$ ls -l /tmp/gcov_basics/coverage.gcda
-  -rw-rw-r-- 1 yogi yogi 160 Jun  8 07:44 /tmp/gcov_basics/coverage.gcda
+Note:  Earlier .gcda file was getting created in /tmp/home/yogi/gcov_basics/ folder.
+Now by exporting GCOV_PREFIX_STRIP=2 environmental variable, will strip two levels - /home/yogi/ folder
+is stripped off and .gcda file will get create in /tmp/gcov_basics/
 
-  ```
+yogi@u32:/tmp$ ls -l /tmp/gcov_basics/coverage.gcda
+-rw-rw-r-- 1 yogi yogi 160 Jun  8 07:44 /tmp/gcov_basics/coverage.gcda
+
+```
 
 ## FAQs
 
-1. undefined reference to `__gcov_init'
+1.undefined reference to `__gcov_init`
+
 ```
 yogi@u32:~/gcov_basics$ make
 gcc -fprofile-arcs -ftest-coverage -c coverage.c
@@ -280,34 +282,37 @@ collect2: ld returned 1 exit status
 make: *** [all] Error 1
 ```
 
-  >The reason for this is, **-fprofile-arcs** and **-ftest-coverage** where used during compilation(in CFLAGS), but missed during linking (in LDFLAGS).
+>The reason for this is, **-fprofile-arcs** and **-ftest-coverage** where used during compilation(in CFLAGS), but missed during linking (in LDFLAGS).
 
-2. .gcda file not getting created as the result of execution.
-   > Check if gcov symbols are there in the binary using **strings** or **nm** command.
+2.`.gcda` file not getting created as the result of execution.
 
-   >**ldd** command **will not help** because there will not be any extra libraries linked specifically for gcov.
+> Check if gcov symbols are there in the binary using **strings** or **nm** command.
 
-   Binary **without gcov symbols** will look like the one shown below.
+>**ldd** command **will not help** because there will not be any extra libraries linked specifically for gcov.
 
-  ```
-  yogi@u32:~/gcov_basics$ strings cov
-  /lib/ld-linux.so.2
-  __gmon_start__
-  libc.so.6
-  _IO_stdin_used
-  puts
-  __libc_start_main
-  GLIBC_2.0
-  PTRh
-  UWVS
-  [^_]
-  True
-  False
-  ;*2$"
-  ```
-    Binary **with gcov symbols** will look like the one shown below.
-    ```
-    yogi@u32:~/gcov_basics$ strings cov
+Binary **without gcov symbols** will look like the one shown below.
+
+```
+yogi@u32:~/gcov_basics$ strings cov
+/lib/ld-linux.so.2
+__gmon_start__
+libc.so.6
+_IO_stdin_used
+puts
+__libc_start_main
+GLIBC_2.0
+PTRh
+UWVS
+[^_]
+True
+False
+;*2$"
+```
+
+Binary **with gcov symbols** will look like the one shown below.
+
+```
+yogi@u32:~/gcov_basics$ strings cov
 /lib/ld-linux.so.2
 __gmon_start__
 libc.so.6
@@ -336,6 +341,10 @@ profiling:%s:Cannot open
 ```
 > The reason for this could be **-fprofile-arcs and -ftest-coverage CFLAGS** were missed during compilation.
 
-3. gcov symbols are seen in the binary but still .gcda file is not getting created.
+3.gcov symbols are seen in the binary but still .gcda file is not getting created.
 
-  > The reason could be the program did not do a graceful exit.
+> The reason could be the program did not do a graceful exit.
+
+
+ We’d love to hear more about your experiences with c/c++ code coverage.
+ Please share your thoughts in the comments below.
