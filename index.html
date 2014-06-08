@@ -9,8 +9,8 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="Building and Deploying static sites becomes easier and simpler than never before.
-I see lot of people buying servers and setting up cdn for deploying &hellip;">
+  <meta name="description" content="What is GCOV GCC provides GCOV, code coverage testing tool for C/C++ programs.
+GCOV identifies the lines of code that got executed while running the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +94,568 @@ I see lot of people buying servers and setting up cdn for deploying &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/08/gcov-c-slash-c-plus-plus-code-coverage-testing-tool/">GCOV - C/C++ Code Coverage Testing Tool</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-08T11:39:18+05:30" pubdate data-updated="true">Jun 8<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>What is GCOV</h2>
+
+<ul>
+<li>GCC provides GCOV, code coverage testing tool for C/C++ programs.</li>
+<li>GCOV identifies the lines of code that got executed while running the program.</li>
+<li>It also gives additional information like how many times particular line got executed.</li>
+<li>Also provides information about how many possible branches are there in the code and which branch path got executed more.</li>
+</ul>
+
+
+<h2>Use cases</h2>
+
+<h3>Optimization</h3>
+
+<p>GCOV identifies the sections in the code that are heavy executed,
+using which we&rsquo;ll be able to <strong>focus on optimizing the parts of the code
+which are executed often</strong>.</p>
+
+<h3>Identifying dead code</h3>
+
+<p>Any code that got compiled but never got executed on any possible scenario can be
+found using GCOV.  Removing such code can help in <strong>reducing the memory footprint</strong>
+of the program.  This can be vital information for programs running on embedded platforms.</p>
+
+<h3>Reliability of testing</h3>
+
+<p>The coverage report can help in <strong>identifying the gaps in testing</strong>.<br/>
+The coverage information can be used for writing test cases to exercise
+the uncovered area in the code.</p>
+
+<h2>Instrumenting GCOV</h2>
+
+<p>GCOV does not require any change in the code. The only requirement is to have the code built with <strong>-fprofile-arcs</strong> and
+<strong>-ftest-coverage</strong>  compiler and linker flags.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 8
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf 131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf 286 Jun  7 15:56 Makefile
+</span><span class='line'>yogi@u32:~/gcov_basics$ cat coverage.c
+</span><span class='line'>#include &lt;stdio.h&gt;
+</span><span class='line'>int main(int argc, char* argv[])
+</span><span class='line'>{
+</span><span class='line'>  if (argc == 1)
+</span><span class='line'>    printf("True\n");
+</span><span class='line'>  else
+</span><span class='line'>    printf("False\n");
+</span><span class='line'>  return 0;
+</span><span class='line'>}
+</span><span class='line'>yogi@u32:~/gcov_basics$ cat Makefile
+</span><span class='line'>CC=gcc
+</span><span class='line'>CFLAGS=-fprofile-arcs -ftest-coverage
+</span><span class='line'>LDFLAGS=-fprofile-arcs -ftest-coverage
+</span><span class='line'>TARGET=cov
+</span><span class='line'>SRC=coverage.c
+</span><span class='line'>
+</span><span class='line'>all:  obj
+</span><span class='line'>  $(CC) $(LDFLAGS) *.o -o $(TARGET)
+</span><span class='line'>obj:
+</span><span class='line'>  $(CC) $(CFLAGS) -c $(SRC)
+</span><span class='line'>clean:
+</span><span class='line'>  rm -f $(TARGET) *.html *.gc* *.o
+</span><span class='line'>gcov:
+</span><span class='line'>  gcovr -r . --html -o coverage.html --html-details</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>CFLAGS += -fprofile-arcs -ftest-coverage</p></blockquote>
+
+<p><code>CFLAGS</code> are meant to be used during compilation. This will create <code>.gcno</code> file corresponding to <code>.c/.cpp</code> file</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ make obj
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage -c coverage.c
+</span><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 16
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf  131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi    396 Jun  7 15:56 coverage.gcno
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi   1824 Jun  7 15:56 coverage.o
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf  286 Jun  7 15:56 Makefile</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>LDFLAGS += -fprofile-arcs -ftest-coverage</p></blockquote>
+
+<p><code>LDFLAGS</code> are meant to be used during linking.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ make
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage -c coverage.c
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage *.o -o cov
+</span><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 36
+</span><span class='line'>-rwxrwxr-x 1 yogi yogi   17295 Jun  7 15:56 cov
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     396 Jun  7 15:56 coverage.gcno
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi    1824 Jun  7 15:56 coverage.o
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   286 Jun  7 15:56 Makefile</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ ./cov
+</span><span class='line'>True
+</span><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 40
+</span><span class='line'>-rwxrwxr-x 1 yogi yogi   17295 Jun  7 15:56 cov
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     160 Jun  7 15:56 coverage.gcda
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     396 Jun  7 15:56 coverage.gcno
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi    1824 Jun  7 15:56 coverage.o
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   286 Jun  7 15:56 Makefile</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>.gcno</code> has static information about the file.</p>
+
+<p><code>.gcda</code> has dynamic information about the file based on the path taken during execution.</p>
+
+<p><code>.gcno</code> and .gcda files together are required to generate the coverage report.</p>
+
+<h2>Generating Report</h2>
+
+<p>Either <strong>gcov</strong> or <strong>gcovr</strong> can be used for generating coverage report.</p>
+
+<p><strong>gcov</strong> utility will be installed as part of <strong>gcc</strong> in most of the Linux distributions.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ gcov coverage.c
+</span><span class='line'>File 'coverage.c'
+</span><span class='line'>Lines executed:80.00% of 5
+</span><span class='line'>coverage.c:creating 'coverage.c.gcov'
+</span><span class='line'>
+</span><span class='line'>yogi@u32:~/gcov_basics$ cat coverage.c.gcov
+</span><span class='line'>        -:    0:Source:coverage.c
+</span><span class='line'>        -:    0:Graph:coverage.gcno
+</span><span class='line'>        -:    0:Data:coverage.gcda
+</span><span class='line'>        -:    0:Runs:1
+</span><span class='line'>        -:    0:Programs:1
+</span><span class='line'>        -:    1:#include &lt;stdio.h&gt;
+</span><span class='line'>        1:    2:int main(int argc, char* argv[])
+</span><span class='line'>        -:    3:{
+</span><span class='line'>        1:    4:  if (argc == 1)
+</span><span class='line'>        1:    5:      printf("True\n");
+</span><span class='line'>        -:    6:  else
+</span><span class='line'>    #####:    7:      printf("False\n");
+</span><span class='line'>        1:    8:  return 0;
+</span><span class='line'>        -:    9:}
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Legend:
+</span><span class='line'>  -       indicates not an executable statement
+</span><span class='line'>  #####   indicates statement the did not get executed
+</span><span class='line'>  1       (or any number) indicates the number of times the statement got executed.</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>gcovr</strong> is a python utility on top of gcov.  It can be installed using pip.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pip install gcovr</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ gcovr -r . --html -o coverage.html --html-details</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above command will generate coverage report in html format.</p>
+
+<h2>Cool features</h2>
+
+<ul>
+<li><p>GCOV takes care of <strong>conditional compilation</strong>.  If a file has 100 lines of code but only 50 lines of code got conditionally compiled using ifdef, then, only 50 lines is taken into account for calculating the code coverage.</p></li>
+<li><p>GCOV when enabled on <strong>shared library</strong> and called from two different applications, will consolidate the coverage based on execution of both the applications.</p></li>
+<li><p>GCOV works <strong>across reboot</strong>.  The execution information can be collected and consolidated across reboot.</p></li>
+<li><p>Running the <strong>same executable multiple instances</strong>, appends execution information to .gcda file.</p></li>
+<li><p>Coverage can be <strong>collected from different physical</strong> machines by copying the executable and .gcda files.</p></li>
+</ul>
+
+
+<h2>Pointer to ponder</h2>
+
+<ul>
+<li><p>The <strong>number of lines in the file does not match exactly with the number of lines considered for testing coverage</strong>.  One reason is, <strong>not all lines are statement</strong> to be executed. Say, { in a line is not a candidate for execution. The next is could be due to <strong>compiler optimization</strong>.</p></li>
+<li><p>The <strong>version of .gcno file and .gcda file should exactly match</strong> to generate report.  If the code was compiled again even without any change, report will not get generated as there is mismatch in the version of .gcno and .gcda files.</p></li>
+<li><p>If .gcno file was created again even without changing anything in the code it will not match with .gcda file.</p></li>
+<li><p>The program should <strong>gracefully exit</strong> to create/append-to .gcda file.</p></li>
+<li><p>If the program is a daemon, better to add <strong>exit(0) in the SIGINT and SIGTERM signal handler.</strong> to do a graceful exit.</p></li>
+<li><p>GCOV will try to create <strong>.gcda file in the same folder structure as it was compiled</strong>.
+But the problem could be when used on embedded platforms, where the filesystem is mostly readonly.
+In this case, <strong>GCOV_PREFIX</strong> enviromental variable can be used.</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ make
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage -c coverage.c
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage *.o -o cov
+</span><span class='line'>
+</span><span class='line'>Note: Copying the executable to /tmp folder
+</span><span class='line'>
+</span><span class='line'>yogi@u32:~/gcov_basics$ cp cov /tmp/
+</span><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 36
+</span><span class='line'>-rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
+</span><span class='line'>yogi@u32:~/gcov_basics$ cd /tmp/
+</span><span class='line'>yogi@u32:/tmp$ ./cov
+</span><span class='line'>True
+</span><span class='line'>yogi@u32:/tmp$ find . -name "*.gcda"
+</span><span class='line'>
+</span><span class='line'>Note: gcda file will not get created in the current working directory, instead
+</span><span class='line'>will be created in the same folder structure as it got compiled.
+</span><span class='line'>
+</span><span class='line'>yogi@u32:/tmp$ cd -
+</span><span class='line'>/home/yogi/gcov_basics
+</span><span class='line'>
+</span><span class='line'>Note: gcda file getting created where the code was actually compiled.
+</span><span class='line'>
+</span><span class='line'>yogi@u32:~/gcov_basics$ ls -l
+</span><span class='line'>total 40
+</span><span class='line'>-rwxrwxr-x 1 yogi yogi   17295 Jun  8 07:30 cov
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   131 Jun  7 15:13 coverage.c
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     160 Jun  8 07:30 coverage.gcda
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi     396 Jun  8 07:30 coverage.gcno
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi    1824 Jun  8 07:30 coverage.o
+</span><span class='line'>-rwxrwx--- 1 yogi vboxsf   286 Jun  7 16:32 Makefile
+</span><span class='line'>yogi@u32:~/gcov_basics$
+</span><span class='line'>yogi@u32:~/gcov_basics$ export GCOV_PREFIX=/tmp
+</span><span class='line'>yogi@u32:~/gcov_basics$ rm coverage.gcda
+</span><span class='line'>yogi@u32:~/gcov_basics$ cd -
+</span><span class='line'>/tmp
+</span><span class='line'>yogi@u32:/tmp$ ./cov
+</span><span class='line'>True
+</span><span class='line'>
+</span><span class='line'>Note: By setting GCOV_PREFIX environmental variable we'll be able to direct
+</span><span class='line'>the files to a particular base folder.
+</span><span class='line'>
+</span><span class='line'>yogi@u32:/tmp$ ls -l /tmp/home/yogi/gcov_basics/coverage.gcda
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi 160 Jun  8 07:31 /tmp/home/yogi/gcov_basics/coverage.gcda</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><strong>GCOV_PREFIX_STRIP</strong> environmental variable can be handy when we are not interested in complete folder structure but to remove certain part of it.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:/tmp$ export GCOV_PREFIX=/tmp
+</span><span class='line'>yogi@u32:/tmp$ export GCOV_PREFIX_STRIP=2
+</span><span class='line'>yogi@u32:/tmp$ ./cov
+</span><span class='line'>True
+</span><span class='line'>
+</span><span class='line'>Note:  Earlier .gcda file was getting created in /tmp/home/yogi/gcov_basics/ folder.
+</span><span class='line'>Now by exporting GCOV_PREFIX_STRIP=2 environmental variable, will strip two levels - /home/yogi/ folder
+</span><span class='line'>is stripped off and .gcda file will get create in /tmp/gcov_basics/
+</span><span class='line'>
+</span><span class='line'>yogi@u32:/tmp$ ls -l /tmp/gcov_basics/coverage.gcda
+</span><span class='line'>-rw-rw-r-- 1 yogi yogi 160 Jun  8 07:44 /tmp/gcov_basics/coverage.gcda
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>FAQs</h2>
+
+<p>1.undefined reference to <code>__gcov_init</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ make
+</span><span class='line'>gcc -fprofile-arcs -ftest-coverage -c coverage.c
+</span><span class='line'>gcc  *.o -o cov
+</span><span class='line'>coverage.o: In function `_GLOBAL__sub_I_65535_0_main':
+</span><span class='line'>coverage.c:(.text+0xae): undefined reference to `__gcov_init'
+</span><span class='line'>coverage.o:(.data+0x24): undefined reference to `__gcov_merge_add'
+</span><span class='line'>collect2: ld returned 1 exit status
+</span><span class='line'>make: *** [all] Error 1</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>The reason for this is, <strong>-fprofile-arcs</strong> and <strong>-ftest-coverage</strong> where used during compilation(in CFLAGS), but missed during linking (in LDFLAGS).</p></blockquote>
+
+<p>2.<code>.gcda</code> file not getting created as the result of execution.</p>
+
+<blockquote><p>Check if gcov symbols are there in the binary using <strong>strings</strong> or <strong>nm</strong> command.</p>
+
+<p><strong>ldd</strong> command <strong>will not help</strong> because there will not be any extra libraries linked specifically for gcov.</p></blockquote>
+
+<p>Binary <strong>without gcov symbols</strong> will look like the one shown below.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ strings cov
+</span><span class='line'>/lib/ld-linux.so.2
+</span><span class='line'>__gmon_start__
+</span><span class='line'>libc.so.6
+</span><span class='line'>_IO_stdin_used
+</span><span class='line'>puts
+</span><span class='line'>__libc_start_main
+</span><span class='line'>GLIBC_2.0
+</span><span class='line'>PTRh
+</span><span class='line'>UWVS
+</span><span class='line'>[^_]
+</span><span class='line'>True
+</span><span class='line'>False
+</span><span class='line'>;*2$"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Binary <strong>with gcov symbols</strong> will look like the one shown below.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yogi@u32:~/gcov_basics$ strings cov
+</span><span class='line'>/lib/ld-linux.so.2
+</span><span class='line'>__gmon_start__
+</span><span class='line'>libc.so.6
+</span><span class='line'>_IO_stdin_used
+</span><span class='line'>...
+</span><span class='line'>[^_]
+</span><span class='line'>True
+</span><span class='line'>False
+</span><span class='line'>/home/yogi/gcov_basics/coverage.gcda
+</span><span class='line'>profiling:%s:Version mismatch - expected %.4s got %.4s
+</span><span class='line'>profiling:%s:Overflow merging
+</span><span class='line'>profiling:%s:Overflow writing
+</span><span class='line'>profiling:%s:Cannot create directory
+</span><span class='line'>profiling:%s:Not a gcov data file
+</span><span class='line'>profiling:%s:Merge mismatch for %s
+</span><span class='line'>profiling:%s:Invocation mismatch - some data files may have been removed%s
+</span><span class='line'>function
+</span><span class='line'>summaries
+</span><span class='line'>profiling:%s:Error merging
+</span><span class='line'>profiling:%s:Error writing
+</span><span class='line'>GCOV_PREFIX_STRIP
+</span><span class='line'>GCOV_PREFIX
+</span><span class='line'>profiling:%s:Skip
+</span><span class='line'>profiling:%s:Cannot open
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>The reason for this could be <strong>-fprofile-arcs and -ftest-coverage CFLAGS</strong> were missed during compilation.</p></blockquote>
+
+<p>3.gcov symbols are seen in the binary but still .gcda file is not getting created.</p>
+
+<blockquote><p>The reason could be the program did not do a graceful exit.</p></blockquote>
+
+<p> We’d love to hear more about your experiences with c/c++ code coverage.
+ Please share your thoughts in the comments below.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1285,6 +1847,10 @@ Happy hacking.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/08/gcov-c-slash-c-plus-plus-code-coverage-testing-tool/">GCOV - C/C++ Code coverage testing tool</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/">Deployed my static site before my friend finished peeing</a>
       </li>
     
@@ -1298,10 +1864,6 @@ Happy hacking.</p>
     
       <li class="post">
         <a href="/blog/2014/05/19/generators-in-python/">Generators in Python</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/10/must-watch-videos-for-entrepreneurs-from-guy-kawasaki/">Must watch videos for Entrepreneurs from Guy Kawasaki</a>
       </li>
     
   </ul>
