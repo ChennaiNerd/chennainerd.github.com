@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Github | Chennai Nerd]]></title>
+  <link href="http://www.chennainerd.in/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://www.chennainerd.in/"/>
+  <updated>2014-06-11T15:38:30+05:30</updated>
+  <id>http://www.chennainerd.in/</id>
+  <author>
+    <name><![CDATA[Chennai Nerd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How github hide email from spam bots in Profile page]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/"/>
+    <updated>2014-06-11T14:29:29+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page</id>
+    <content type="html"><![CDATA[<p>As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a heat chart with
+lot of green dots. Since my network is somewhat slow, all the time i could
+see <code>{email}</code> instead of my email address. I thought it is due to client
+side rendering. But it does not happen for all other fields like <code>name</code>, <code>location</code>
+and <code>website</code>. Only <code>email</code> field is rendered in client side.</p>
+
+<p><code>Why?</code> I google it and I found that it is to avoid <code>Spam Bots</code> to crawl the email address.
+Basically, The spam bots crawls the site and check for email address and then used them
+to send ads and other unwanted mails. You might see email address in the site like
+<code>kumar [at] gmail [dot] com</code>. This method is also used in the past to confuse spam bots.</p>
+
+<p>Lets see how Github might implemented this method. Following is the html code
+returned from server for Github Profile page(eg: <a href="https://github.com/visionmedia">https://github.com/visionmedia</a>)</p>
+
+<p>```
+ &lt;a</p>
+
+<pre><code> class="email js-obfuscate-email"
+ data-email="%74%6a%40%76%69%73%69%6f%6e%2d%6d%65%64%69%61%2e%63%61"
+ href="mailto:{email}"&gt;
+   {email}
+</code></pre>
+
+<p> </a>
+```</p>
+
+<p>You can see <code>{email}</code> in the place of email address and another field <code>data-email</code>.
+<a href="http://stackoverflow.com/users/2151331/fajarkoe">fajarkoe</a> explains how it works</p>
+
+<p>```
+The content of data-email is just the hexadecimal version of your email address
+&ldquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#116;&#106;&#64;&#118;&#x69;&#115;&#x69;&#x6f;&#x6e;&#45;&#x6d;&#x65;&#100;&#x69;&#97;&#x2e;&#99;&#97;">&#116;&#106;&#x40;&#x76;&#105;&#x73;&#x69;&#x6f;&#110;&#45;&#109;&#101;&#x64;&#105;&#97;&#46;&#x63;&#97;</a>&rdquo;.</p>
+
+<p>It is a sequence of hexadecimal characters, where each character is of the
+form %XY, where X and Y are hexadecimal digits (0-f). For example,
+the first two hexadecimal characters in your case are %66 and %69.
+If you look at the ASCII table (<a href="http://en.wikipedia.org/wiki/ASCII">http://en.wikipedia.org/wiki/ASCII</a>),
+the symbol that corresponds to ASCII with hexadecimal number 66 is &ldquo;f&rdquo;,
+while for hexadecimal number 69 is &ldquo;i&rdquo;.</p>
+
+<p>You can use play around with this tool <a href="http://www.asciitohex.com/.">http://www.asciitohex.com/.</a>
+```</p>
+
+<p>Once the page is rendered in the browser, hexa decimal value is converted to <code>ascii</code> as follows</p>
+
+<p>`&ldquo;
+function hex2a(hexx) {
+  var hex = hexx.toString();//force conversion
+  var str = &rdquo;;
+  for (var i = 0; i &lt; hex.length; i += 2)</p>
+
+<pre><code>  str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+</code></pre>
+
+<p>  return str;
+}</p>
+
+<p>var $email = $(&lsquo;a.js-obfuscate-email&rsquo;);
+var hexaEmail = $email.data(&lsquo;email&rsquo;);
+hexaEmail = hexaEmail.replace(/%/g, &lsquo;&rsquo;)
+var email = hex2a(hexaEmail);
+```</p>
+
+<p>Once you get the email, the email is updated in DOM element as follows</p>
+
+<p><code>
+var $email = $('a.js-obfuscate-email');
+$email.attr('href', 'mailto:' + email);
+$email.text(email);
+</code></p>
+
+<p>That’s All Folks. Hope this tutorial helped you in understanding method to hide email from spam bots.
+Please share your thoughts in the comments below.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2014-06-08T12:47:58+05:30</updated>
+  <updated>2014-06-11T15:38:30+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -12,6 +12,110 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How github hide email from spam bots in Profile page]]></title>
+    <link href="http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/"/>
+    <updated>2014-06-11T14:29:29+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page</id>
+    <content type="html"><![CDATA[<p>As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a heat chart with
+lot of green dots. Since my network is somewhat slow, all the time i could
+see <code>{email}</code> instead of my email address. I thought it is due to client
+side rendering. But it does not happen for all other fields like <code>name</code>, <code>location</code>
+and <code>website</code>. Only <code>email</code> field is rendered in client side.</p>
+
+<p><code>Why?</code> I google it and I found that it is to avoid <code>Spam Bots</code> to crawl the email address.
+Basically, The spam bots crawls the site and check for email address and then used them
+to send ads and other unwanted mails. You might see email address in the site like
+<code>kumar [at] gmail [dot] com</code>. This method is also used in the past to confuse spam bots.</p>
+
+<p>Lets see how Github might implemented this method. Following is the html code
+returned from server for Github Profile page(eg: <a href="https://github.com/visionmedia">https://github.com/visionmedia</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;a
+</span><span class='line'>     class="email js-obfuscate-email"
+</span><span class='line'>     data-email="%74%6a%40%76%69%73%69%6f%6e%2d%6d%65%64%69%61%2e%63%61"
+</span><span class='line'>     href="mailto:{email}"&gt;
+</span><span class='line'>       {email}
+</span><span class='line'> &lt;/a&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see <code>{email}</code> in the place of email address and another field <code>data-email</code>.
+<a href="http://stackoverflow.com/users/2151331/fajarkoe">fajarkoe</a> explains how it works</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>The content of data-email is just the hexadecimal version of your email address
+</span><span class='line'>"tj@vision-media.ca".
+</span><span class='line'>
+</span><span class='line'>It is a sequence of hexadecimal characters, where each character is of the
+</span><span class='line'>form %XY, where X and Y are hexadecimal digits (0-f). For example,
+</span><span class='line'>the first two hexadecimal characters in your case are %66 and %69.
+</span><span class='line'>If you look at the ASCII table (http://en.wikipedia.org/wiki/ASCII),
+</span><span class='line'>the symbol that corresponds to ASCII with hexadecimal number 66 is "f",
+</span><span class='line'>while for hexadecimal number 69 is "i".
+</span><span class='line'>
+</span><span class='line'>You can use play around with this tool http://www.asciitohex.com/.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once the page is rendered in the browser, hexa decimal value is converted to <code>ascii</code> as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function hex2a(hexx) {
+</span><span class='line'>  var hex = hexx.toString();//force conversion
+</span><span class='line'>  var str = '';
+</span><span class='line'>  for (var i = 0; i &lt; hex.length; i += 2)
+</span><span class='line'>      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+</span><span class='line'>  return str;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>var hexaEmail = $email.data('email');
+</span><span class='line'>hexaEmail = hexaEmail.replace(/%/g, '')
+</span><span class='line'>var email = hex2a(hexaEmail);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once you get the email, the email is updated in DOM element as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>$email.attr('href', 'mailto:' + email);
+</span><span class='line'>$email.text(email);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That’s All Folks. Hope this tutorial helped you in understanding method to hide email from spam bots.
+Please share your thoughts in the comments below.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GCOV - C/C++ Code coverage testing tool]]></title>

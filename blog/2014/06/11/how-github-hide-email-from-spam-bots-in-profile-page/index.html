@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How github hide email from spam bots in Profile page - Chennai Nerd</title>
+  <meta name="author" content="Chennai Nerd">
+
+  
+  <meta name="description" content="As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Chennai Nerd" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48220445-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation"><div id="ColorBar">
+  <div class="cn-yellow"></div>
+  <div class="cn-amber"></div>
+  <div class="cn-orange"></div>
+  <div class="cn-sunset"></div>
+  <div class="cn-red"></div>
+  <div class="cn-fuchsia"></div>
+  <div class="cn-purple"></div>
+  <div class="cn-indigo"></div>
+  <div class="cn-blue"></div>
+  <div class="cn-aqua"></div>
+  <div class="cn-green"></div>
+  <div class="cn-lime"></div>
+</div>
+<ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.chennainerd.in" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="yellow">
+            Chennai Nerd
+        </span>
+       
+           <span class="blue_light nav-subtitle">
+             Dream on Web
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About us</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How Github Hide Email From Spam Bots in Profile Page</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-11T14:29:29+05:30" pubdate data-updated="true">Jun 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a heat chart with
+lot of green dots. Since my network is somewhat slow, all the time i could
+see <code>{email}</code> instead of my email address. I thought it is due to client
+side rendering. But it does not happen for all other fields like <code>name</code>, <code>location</code>
+and <code>website</code>. Only <code>email</code> field is rendered in client side.</p>
+
+<p><code>Why?</code> I google it and I found that it is to avoid <code>Spam Bots</code> to crawl the email address.
+Basically, The spam bots crawls the site and check for email address and then used them
+to send ads and other unwanted mails. You might see email address in the site like
+<code>kumar [at] gmail [dot] com</code>. This method is also used in the past to confuse spam bots.</p>
+
+<p>Lets see how Github might implemented this method. Following is the html code
+returned from server for Github Profile page(eg: <a href="https://github.com/visionmedia">https://github.com/visionmedia</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;a
+</span><span class='line'>     class="email js-obfuscate-email"
+</span><span class='line'>     data-email="%74%6a%40%76%69%73%69%6f%6e%2d%6d%65%64%69%61%2e%63%61"
+</span><span class='line'>     href="mailto:{email}"&gt;
+</span><span class='line'>       {email}
+</span><span class='line'> &lt;/a&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see <code>{email}</code> in the place of email address and another field <code>data-email</code>.
+<a href="http://stackoverflow.com/users/2151331/fajarkoe">fajarkoe</a> explains how it works</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>The content of data-email is just the hexadecimal version of your email address
+</span><span class='line'>"tj@vision-media.ca".
+</span><span class='line'>
+</span><span class='line'>It is a sequence of hexadecimal characters, where each character is of the
+</span><span class='line'>form %XY, where X and Y are hexadecimal digits (0-f). For example,
+</span><span class='line'>the first two hexadecimal characters in your case are %66 and %69.
+</span><span class='line'>If you look at the ASCII table (http://en.wikipedia.org/wiki/ASCII),
+</span><span class='line'>the symbol that corresponds to ASCII with hexadecimal number 66 is "f",
+</span><span class='line'>while for hexadecimal number 69 is "i".
+</span><span class='line'>
+</span><span class='line'>You can use play around with this tool http://www.asciitohex.com/.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once the page is rendered in the browser, hexa decimal value is converted to <code>ascii</code> as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function hex2a(hexx) {
+</span><span class='line'>  var hex = hexx.toString();//force conversion
+</span><span class='line'>  var str = '';
+</span><span class='line'>  for (var i = 0; i &lt; hex.length; i += 2)
+</span><span class='line'>      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+</span><span class='line'>  return str;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>var hexaEmail = $email.data('email');
+</span><span class='line'>hexaEmail = hexaEmail.replace(/%/g, '')
+</span><span class='line'>var email = hex2a(hexaEmail);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once you get the email, the email is updated in DOM element as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>$email.attr('href', 'mailto:' + email);
+</span><span class='line'>$email.text(email);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That’s All Folks. Hope this tutorial helped you in understanding method to hide email from spam bots.
+Please share your thoughts in the comments below.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Fizer Khan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-11T14:29:29+05:30" pubdate data-updated="true">Jun 11<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/github/'>Github</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/" data-via="" data-counturl="http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/06/08/gcov-c-slash-c-plus-plus-code-coverage-testing-tool/" title="Previous Post: GCOV - C/C++ Code coverage testing tool">&laquo; GCOV - C/C++ Code coverage testing tool</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/">How github hide email from spam bots in Profile page</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/08/gcov-c-slash-c-plus-plus-code-coverage-testing-tool/">GCOV - C/C++ Code coverage testing tool</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/">Deployed my static site before my friend finished peeing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/05/backup-of-openshift-application/">Backup of Openshift Application</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">Running Python script from Cron job in Openshift</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Chennai Nerd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'chennainerd';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/';
+        var disqus_url = 'http://www.chennainerd.in/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

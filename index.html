@@ -9,8 +9,8 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="What is GCOV GCC provides GCOV, code coverage testing tool for C/C++ programs.
-GCOV identifies the lines of code that got executed while running the &hellip;">
+  <meta name="description" content="As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +94,137 @@ GCOV identifies the lines of code that got executed while running the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/">How Github Hide Email From Spam Bots in Profile Page</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-11T14:29:29+05:30" pubdate data-updated="true">Jun 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As a i am a developer, i uses Github a lot. I love it more than any site.
+I used to see my Github profile page because i feel very happy to see a heat chart with
+lot of green dots. Since my network is somewhat slow, all the time i could
+see <code>{email}</code> instead of my email address. I thought it is due to client
+side rendering. But it does not happen for all other fields like <code>name</code>, <code>location</code>
+and <code>website</code>. Only <code>email</code> field is rendered in client side.</p>
+
+<p><code>Why?</code> I google it and I found that it is to avoid <code>Spam Bots</code> to crawl the email address.
+Basically, The spam bots crawls the site and check for email address and then used them
+to send ads and other unwanted mails. You might see email address in the site like
+<code>kumar [at] gmail [dot] com</code>. This method is also used in the past to confuse spam bots.</p>
+
+<p>Lets see how Github might implemented this method. Following is the html code
+returned from server for Github Profile page(eg: <a href="https://github.com/visionmedia">https://github.com/visionmedia</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;a
+</span><span class='line'>     class="email js-obfuscate-email"
+</span><span class='line'>     data-email="%74%6a%40%76%69%73%69%6f%6e%2d%6d%65%64%69%61%2e%63%61"
+</span><span class='line'>     href="mailto:{email}"&gt;
+</span><span class='line'>       {email}
+</span><span class='line'> &lt;/a&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can see <code>{email}</code> in the place of email address and another field <code>data-email</code>.
+<a href="http://stackoverflow.com/users/2151331/fajarkoe">fajarkoe</a> explains how it works</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>The content of data-email is just the hexadecimal version of your email address
+</span><span class='line'>"tj@vision-media.ca".
+</span><span class='line'>
+</span><span class='line'>It is a sequence of hexadecimal characters, where each character is of the
+</span><span class='line'>form %XY, where X and Y are hexadecimal digits (0-f). For example,
+</span><span class='line'>the first two hexadecimal characters in your case are %66 and %69.
+</span><span class='line'>If you look at the ASCII table (http://en.wikipedia.org/wiki/ASCII),
+</span><span class='line'>the symbol that corresponds to ASCII with hexadecimal number 66 is "f",
+</span><span class='line'>while for hexadecimal number 69 is "i".
+</span><span class='line'>
+</span><span class='line'>You can use play around with this tool http://www.asciitohex.com/.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once the page is rendered in the browser, hexa decimal value is converted to <code>ascii</code> as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function hex2a(hexx) {
+</span><span class='line'>  var hex = hexx.toString();//force conversion
+</span><span class='line'>  var str = '';
+</span><span class='line'>  for (var i = 0; i &lt; hex.length; i += 2)
+</span><span class='line'>      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+</span><span class='line'>  return str;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>var hexaEmail = $email.data('email');
+</span><span class='line'>hexaEmail = hexaEmail.replace(/%/g, '')
+</span><span class='line'>var email = hex2a(hexaEmail);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once you get the email, the email is updated in DOM element as follows</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var $email = $('a.js-obfuscate-email');
+</span><span class='line'>$email.attr('href', 'mailto:' + email);
+</span><span class='line'>$email.text(email);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That’s All Folks. Hope this tutorial helped you in understanding method to hide email from spam bots.
+Please share your thoughts in the comments below.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1726,115 +1857,9 @@ particularly interested in learning drawing, animation and user interaction with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/18/tips-for-faster-workflow-in-terminal/">Tips for Fasten Your Workflow in Terminal</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-18T18:00:13+05:30" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Without a doubt and question, Terminal is home for all programmers.
-It always wonderful to have shortcuts to save our precious seconds.
-Here we will discuss about techniques to fasten your workflow.
-Place all <code>bash</code> function and aliases inside your <code>.bash_profile</code> or <code>.bashrc</code>.</p>
-
-<h3>Create and Change Directory</h3>
-
-<p>Generally, we create a folder and then <code>cd</code> to created directory.
-We can do it by</p>
-
-<pre><code>take ()
-{
-    mkdir -p $1 &amp;&amp; cd $1
-}
-</code></pre>
-
-<p>Type <code>take foobar</code> will create and change directory to <code>foobar</code></p>
-
-<h3>Run static server</h3>
-
-<p>If you are a web developer, you wanted to view static files in browser.
-Run your static server by</p>
-
-<pre><code>server ()
-{
-    local port="${1:-8000}";
-    open "http://localhost:${port}/";
-    python -c 'import SimpleHTTPServer;
-    map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;
-    map[""] = "text/plain";
-    for key, value in map.items():
-        map[key] = value + ";charset=UTF-8";
-    SimpleHTTPServer.test();' "$port"
-}
-</code></pre>
-
-<p>Type <code>server</code> insider any directory and visit <code>http://localhost:8000/</code> in browser</p>
-
-<h3>Git aliases</h3>
-
-<p>If you are a git user, following aliases will save your time a lot.</p>
-
-<pre><code>alias gcl='git clone'
-alias ga='git add .'
-alias gall='git add -A'
-alias gst='git status'
-alias gc='git commit -v'
-alias gco='git checkout'
-alias gl='git pull'
-alias gp='git push'
-alias gpo='git push origin'
-</code></pre>
-
-<h3>Run previous command</h3>
-
-<p><code>!!</code> represents the previous command. Most of the time, we forgot to type sudo for
-some command.</p>
-
-<pre><code>sudo !!
-</code></pre>
-
-<p>Above will run the previous command with <code>sudo</code>. CAUTION: Your previous command MUST NOT BE
- <code>rm -rf /</code> :).</p>
-
-<h3>Go back to old directory</h3>
-
-<p>Sometimes we want to change directory to previous working directory which we changed from. And revert to previous working directory we can use same command. This is vary much useful cd command.</p>
-
-<pre><code>cd -
-</code></pre>
-
-<p>We know, there are lot of cool tips out there. Share with us what you got.
-Happy hacking.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1845,6 +1870,10 @@ Happy hacking.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/">How github hide email from spam bots in Profile page</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/06/08/gcov-c-slash-c-plus-plus-code-coverage-testing-tool/">GCOV - C/C++ Code coverage testing tool</a>
@@ -1860,10 +1889,6 @@ Happy hacking.</p>
     
       <li class="post">
         <a href="/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">Running Python script from Cron job in Openshift</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/19/generators-in-python/">Generators in Python</a>
       </li>
     
   </ul>
