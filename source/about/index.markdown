@@ -7,10 +7,13 @@ sharing: false
 footer: false
 ---
 
-We are passionate about latest technologies and trends. We love web and always
-live on web. We truly believe that learning comes from sharing.
-We use this platform to share what we know and like to know what you got.
-Finally, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</strong>
+We are a passionate and creative group of developers and excited about latest technologies and trends.
+We truly believe that learning comes from sharing.
+So we use this blog to share what we know and like to know what you got.
+And, We are from Great Place <strong style="color:#d91459">Chennai, INDIA</strong>
+
+Our philosophy is pretty straightforward: build simple, easy-to-use software that
+makes it easy for people to work better.
 
 Github: [https://github.com/ChennaiNerd](https://github.com/ChennaiNerd)
 

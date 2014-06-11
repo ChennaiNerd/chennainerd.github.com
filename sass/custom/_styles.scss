@@ -23,6 +23,7 @@ html {
     border-top:0px solid #fff;
     border-bottom:0px solid #fff;
     //padding-top:4px;
+    padding-left: 0;
     padding-bottom:3px;
     background: transparent !important;
 
@@ -75,8 +76,12 @@ html {
   .gist-highlight {
       margin-bottom:0;
   }
+  .nav-brand {
+    font-size: 1.2em;
+  }
   .nav-subtitle {
     font-size: 14px;
+    color: #ffb;
   }
 
   body {
@@ -95,7 +100,7 @@ html {
     position:fixed;
     top:0;
     z-index:9999;
-    margin-left: -94px;
+    margin-left: -33px;
     margin-top: -1px;
 }
 
@@ -109,14 +114,14 @@ html {
 
 @media(max-width: 1024px) {
     #ColorBar {
-        margin-left: -35px;
+        margin-left: -15px;
     }
 }
 
 @media(max-width: 480px) {
     #ColorBar {
         width:103%;
-        margin-left: -20px;
+        margin-left: 0px;
     }
 }
 
