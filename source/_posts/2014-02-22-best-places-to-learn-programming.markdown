@@ -46,13 +46,6 @@ Tackling projects built by tech leaders like Google, AT&T, and Intuit,
 you’ll stretch yourself and learn new and relevant skills.
 
 
-### [LearnStreet](https://www.learnstreet.com/)
-
-If you are that kind of personnel who do not fancy playful design and prefer to
-deal with cold hard codes, LearnStreet is probably your thing. It currently offers
-JavaScript, Python and Ruby courses at beginner level.
-
-
 ### [codehs](http://www.codehs.com/)
 
 At this point all websites you read here are mainly dedicated to web development
@@ -73,6 +66,14 @@ science courses from schools not participating in the OCW program.
 One of best known learning platform Khan Academy offers variety of courses, not only
 computer science. It serves as an open playground for both novice and amateurs
 particularly interested in learning drawing, animation and user interaction with code.
+
+
+### [Website Setup](http://websitesetup.org/)
+
+I randomly came across this site. It is really wonderful. Website Setup is helping people
+to make their first web site in a simplest way as possible. The step by step guide will help
+you to create, set up and design your own personal website using WordPress, Joomla, Drupal
+and HTML5.
 
 Be ready to code next Facebook.
 
