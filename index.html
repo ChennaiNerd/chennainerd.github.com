@@ -9,8 +9,19 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="As a i am a developer, i uses Github a lot. I love it more than any site.
-I used to see my Github profile page because i feel very happy to see a &hellip;">
+  <meta name="description" content="I had a requirement to have random numbers generated in a C application. 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+int &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +105,209 @@ I used to see my Github profile page because i feel very happy to see a &hellip;
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/21/random-rationalized/">Random Rationalized</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-21T10:26:07+05:30" pubdate data-updated="true">May 21<span>st</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I had a requirement to have random numbers generated in a C application.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#include &lt;stdlib.h&gt;
+</span><span class='line'>#include &lt;stdio.h&gt;
+</span><span class='line'>int main()
+</span><span class='line'>{
+</span><span class='line'>  int i = 0;
+</span><span class='line'>  for (i = 0; i &lt; 5; i++) {
+</span><span class='line'>    printf("Random number %d  =  %ld\n", i, random());
+</span><span class='line'>  }
+</span><span class='line'>  return 0;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I ran the code once and saw that random numbers were getting generated.</p>
+
+<p>But to my surprise when I ran the code second time, I saw the same numbers getting printed.</p>
+
+<blockquote><p>What??? Does it mean random numbers are predictable? If so, why is it called random?
+<code>Random</code> and <code>Predictable</code> words literally contradicting each other.</p></blockquote>
+
+<p>But I remember using random.random() in Python which each time gave different output.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+</span><span class='line'><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>  <span class="k">print</span> <span class="n">random</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Each time I executed this code I got different set of output.</p>
+
+<p>Is the random function implementation in libc is so buggy?  Of course, cannot be!!!</p>
+
+<p>Oh wait. Are we missing something here.</p>
+
+<blockquote><p>If there is going to some algorithm for generating random numbers it means that we telling the computer to perform a series of steps and give us a result.  If the series of steps is defined it implies that the result is predictable.</p></blockquote>
+
+<p>But people coming up with such algorithms would have definitely thought about this.</p>
+
+<blockquote><p>They would have added some variable parameter into the equation making it unpredictable.  That variable parameter can be anything like &ndash; derived from current timestamp or current data in the network device.</p></blockquote>
+
+<p>If so, does it mean Python implementors thought of this and libc implementors missed it?</p>
+
+<p>When I checked the man page of random() function in my Linux machine.  It said,</p>
+
+<blockquote><p>The random() function uses a nonlinear additive feedback random  number generator  employing a default table of size 31 long integers to return successive pseudo-random numbers in the range from 0 to RAND_MAX.   The period  of  this  random  number generator is very large, approximately</p></blockquote>
+
+<pre><code>   16 * ((2^31) - 1).
+</code></pre>
+
+<h4>So, this is it.  It is not random it is actually pseudo-random.</h4>
+
+<p>Meaning of pseudorandom from dictionary,</p>
+
+<blockquote><p>pseudorandom |ˌsjuːdəʊˈrandəm|
+adjective</p>
+
+<p>(of a number, a sequence of numbers, or any digital data) satisfying one or more statistical tests for <code>randomness but produced by a definite mathematical procedure.</code> most computers have built-in functions which will generate sequences of pseudorandom numbers.`</p></blockquote>
+
+<p>Aha. We are there.  Whatever we discussed so far is making sense.</p>
+
+<blockquote><p>Also, there can be a requirement, where, for some experiment which uses random numbers has to be reproducible.</p></blockquote>
+
+<p>So thats the reason. Why random() function in libc is returning same sequence.  The same can be achieved even in Python using seed.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">random</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>                <span class="k">print</span><span class="p">(</span><span class="s">&quot;Unseeded random number: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()))</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span><span class='line'>                <span class="k">print</span><span class="p">(</span><span class="s">&quot;Seeded random number: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()))</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The output of the above code twice,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>ythulasi@YTHULASI-M-C341 test_random<span class="o">]</span><span class="nv">$ </span>date <span class="o">&amp;&amp;</span> python ~/exp/python/test_random/ran.py
+</span><span class='line'>Wed May 20 19:45:46 IST 2015
+</span><span class='line'>Unseeded random number: 0.399506141684
+</span><span class='line'>Unseeded random number: 0.591102825052
+</span><span class='line'>Unseeded random number: 0.00522710909826
+</span><span class='line'>Seeded random number: 0.62290169489
+</span><span class='line'>Seeded random number: 0.741786989261
+</span><span class='line'>Seeded random number: 0.795193565566
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>ythulasi@YTHULASI-M-C341 test_random<span class="o">]</span><span class="nv">$ </span>date <span class="o">&amp;&amp;</span> python ~/exp/python/test_random/ran.py
+</span><span class='line'>Wed May 20 19:45:49 IST 2015
+</span><span class='line'>Unseeded random number: 0.888964633885
+</span><span class='line'>Unseeded random number: 0.000467464175557
+</span><span class='line'>Unseeded random number: 0.0425654580676
+</span><span class='line'>Seeded random number: 0.62290169489
+</span><span class='line'>Seeded random number: 0.741786989261
+</span><span class='line'>Seeded random number: 0.795193565566
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The same seed returns the same sequence.</p>
+
+<p>So thats the feature of libc, which allows the caller to set <code>same</code> or <code>different</code>  seed each time based on the requirement.</p>
+
+<blockquote><p>Moral of the story is,</p>
+
+<ul>
+<li>random numbers generated by computer are only pseudo random numbers.</li>
+</ul>
+
+
+<p>Seeds used in random numbers are meant for two reasons,</p>
+
+<ul>
+<li><p>to increase the degree of randomness</p></li>
+<li><p>to make experiment that uses random numbers reproducible</p></li>
+</ul>
+</blockquote>
+
+<p>Happy hacking!!!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1761,103 +1975,6 @@ the scope of the controller.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/22/best-places-to-learn-programming/">Best Places to Learn Programming</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T17:09:55+05:30" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Everyday, we hear news of acquisition of tech companies for million or billion dollars.
-It creates a lot of excitement among programmers and even non programmers.
-So everybody wanted to learn programming and even programmer from C, Java background
-wanted to learn iOS, Android app development. Big question: Should i need
-to go college to learn programming? Not anymore, we have lot of online companies
-offering courses to train you like Ninja. Following are few places where you can learn to code.</p>
-
-<h3><a href="http://codeschool.com/">Code School</a></h3>
-
-<p><a href="http://codeschool.com/">Code School</a> teaches web technologies in the comfort of
-your browser with video lessons, coding challenges, and screencasts. From my experience,
-it is one of best places to learn web and mobile application development.
-It costs <code>$29</code> per month. But it worths it.</p>
-
-<h3><a href="http://www.codecademy.com/">Codecademy</a></h3>
-
-<p>At Codecademy, you can learn to code in JavaScript, HTML and CSS, Python and Ruby.
-Codecademy is <code>Free</code>. It is one of the most famous website to teach you to code interactively,</p>
-
-<h3><a href="https://teamtreehouse.com/">Treehouse</a></h3>
-
-<p>Treehouse can prepare you for a developer gig, even if you’ve got no experience.
-A helpful iPad app also makes it easy to learn on the go.  Treehouse courses
-are more project-oriented than language-oriented, so they are perfect for novice
-programmer with a planned purpose, such as building a website, or an application.</p>
-
-<p>It has two pricing plan. 1. <code>Basic($25)</code>  2. <code>Pro($49)</code> per month</p>
-
-<h3><a href="https://www.udacity.com/">Udacity</a></h3>
-
-<p>Udacity aims to bring college courses online specially Computer courses.
-Udacity claims that online courses are rigorous and may even make you sweat.
-Tackling projects built by tech leaders like Google, AT&amp;T, and Intuit,
-you’ll stretch yourself and learn new and relevant skills.</p>
-
-<h3><a href="http://www.codehs.com/">codehs</a></h3>
-
-<p>At this point all websites you read here are mainly dedicated to web development
-and computer science, but CodeHS is one with simple and fun game programming lessons
-that involve problem solving, JavaScript, animation, data structures,
-game design and puzzle challenges.</p>
-
-<h3><a href="https://www.coursera.org/">Coursera</a></h3>
-
-<p>Coursera aims to bring college courses online — but it’s specifically focused
-on making the “best” courses available. Here you’ll find a wealth of computer
-science courses from schools not participating in the OCW program.</p>
-
-<h3><a href="http://www.khanacademy.org/cs">khanacademy</a></h3>
-
-<p>One of best known learning platform Khan Academy offers variety of courses, not only
-computer science. It serves as an open playground for both novice and amateurs
-particularly interested in learning drawing, animation and user interaction with code.</p>
-
-<h3><a href="http://websitesetup.org/">Website Setup</a></h3>
-
-<p>I randomly came across this site. It is really wonderful. Website Setup is helping people
-to make their first web site in a simplest way as possible. The step by step guide will help
-you to create, set up and design your own personal website using WordPress, Joomla, Drupal
-and HTML5.</p>
-
-<p>Be ready to code next Facebook.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1885,6 +2002,10 @@ and HTML5.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/21/random-rationalized/">Random Rationalized</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/11/how-github-hide-email-from-spam-bots-in-profile-page/">How github hide email from spam bots in Profile page</a>
       </li>
     
@@ -1898,10 +2019,6 @@ and HTML5.</p>
     
       <li class="post">
         <a href="/blog/2014/06/05/backup-of-openshift-application/">Backup of Openshift Application</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/29/running-python-script-from-cron-job-in-openshift/">Running Python script from Cron job in Openshift</a>
       </li>
     
   </ul>
