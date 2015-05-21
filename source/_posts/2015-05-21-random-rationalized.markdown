@@ -3,7 +3,7 @@ layout: post
 title: "Random Rationalized"
 date: 2015-05-21 10:26:07 +0530
 comments: true
-author: Fizer Khan
+author: Yogeswaran
 categories:
 ---
 
