@@ -31,5 +31,5 @@ CAUTION: When you push changes, push it to source branch alone
 
 ## License
 
-(The MIT License)
+The MIT License
 
