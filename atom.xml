@@ -4,7 +4,7 @@
   <title><![CDATA[Chennai Nerd]]></title>
   <link href="http://www.chennainerd.in/atom.xml" rel="self"/>
   <link href="http://www.chennainerd.in/"/>
-  <updated>2017-01-24T17:25:20+05:30</updated>
+  <updated>2017-01-24T19:26:38+05:30</updated>
   <id>http://www.chennainerd.in/</id>
   <author>
     <name><![CDATA[Chennai Nerd]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Secure your sites with Lets Encrypt Free SSL Certificates]]></title>
+    <link href="http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/"/>
+    <updated>2017-01-24T10:26:07+05:30</updated>
+    <id>http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate</id>
+    <content type="html"><![CDATA[<p>SSL certificates are vital to protect communications between the web server and client.
+We used to buy SSL certificates from <a href="https://www.symantec.com/ssl-certificates/">Symantec</a>,
+<a href="https://www.verisign.com/en_IN/">Verisign</a>, <a href="https://www.geotrust.com">GeoTrust</a>, <a href="https://www.rapidssl.com/">RapidSSL</a>.
+The price for SSL certificate will go from low to high for Single domain certificate, Wildcard certificate,
+and Extended validation certificates respectively. Small startup or Blog owner cannot afford SSL certificates.</p>
+
+<p>But you can get free SSL certificates through <a href="https://letsencrypt.org/">Let’s Encrypt</a> which is
+is a free, automated, and open Certificate Authority. It provides an easy way to obtain and install trusted certificates for free.
+Lets see how we can get SSL certificate.</p>
+
+<h3>Install Let’s Encrypt</h3>
+
+<p>In this tutorial, we are using Ubuntu 14.01. First we have to install Let’s Encrypt client
+tool <a href="https://github.com/certbot/certbot">certbot-auto</a></p>
+
+<pre><code>wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+</code></pre>
+
+<h3>Getting new certificates</h3>
+
+<p>To obtain a cert for <code>acme.com</code>, <code>www.acme.com</code> and <code>blog.acme.net</code>:</p>
+
+<pre><code>./certbot-auto certonly --standalone --email admin@acme.com -d acme.com -d www.acme.com -d blog.acme.net
+</code></pre>
+
+<p>If you’re running a local webserver for which you have the ability to modify the content being served,
+and you’d prefer not to stop the webserver during the certificate issuance process, you can use the
+<a href="https://certbot.eff.org/docs/using.html#webroot">webroot plugin</a> to obtain a cert by including certonly and
+<code>--webroot</code> on the command line.</p>
+
+<pre><code>./certbot certonly --webroot -w /var/www/acme/ -d www.acme.com -d acme.com -w /var/www/blog/ -d blog.acme.net -d another.blog.acme.net
+</code></pre>
+
+<p><em>Where:</em></p>
+
+<p><strong>-d</strong> = Domain name</p>
+
+<p><strong>-w</strong> = Directory in which SSL certificates to be copied</p>
+
+<h3>Renew Certificates</h3>
+
+<p>Let&rsquo;s Encrypt certificates will expire in 90 days after creation or renewal. You have to renew the certificates automatically before they expire. You can arrange for automatic renewal by adding a <code>cron</code> or <code>systemd</code> job which runs the following:</p>
+
+<pre><code>./certbot-auto renew --quiet --no-self-upgrade
+</code></pre>
+
+<p>You can find more detailed information and options in the <a href="https://certbot.eff.org/docs/intro.html">full documentation.</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Random Rationalized]]></title>

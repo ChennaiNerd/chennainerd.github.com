@@ -9,19 +9,9 @@
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="I had a requirement to have random numbers generated in a C application. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-#include &lt;stdlib.h&gt;
-#include &lt;stdio.h&gt;
-int &hellip;">
+  <meta name="description" content="SSL certificates are vital to protect communications between the web server and client.
+We used to buy SSL certificates from Symantec,
+Verisign, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -58,7 +48,7 @@ int &hellip;">
 </head>
 
 <body   >
-  <nav role="navigation"><div id="ColorBar">
+  <nav role="navigation"><!-- <div id="ColorBar">
   <div class="cn-yellow"></div>
   <div class="cn-amber"></div>
   <div class="cn-orange"></div>
@@ -71,7 +61,7 @@ int &hellip;">
   <div class="cn-aqua"></div>
   <div class="cn-green"></div>
   <div class="cn-lime"></div>
-</div>
+</div> -->
 <ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
@@ -105,6 +95,89 @@ int &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/01/24/lets-encrypt-free-ssl-certificate/">Secure Your Sites With Lets Encrypt Free SSL Certificates</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-24T10:26:07+05:30" pubdate data-updated="true">Jan 24<span>th</span>, 2017</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>SSL certificates are vital to protect communications between the web server and client.
+We used to buy SSL certificates from <a href="https://www.symantec.com/ssl-certificates/">Symantec</a>,
+<a href="https://www.verisign.com/en_IN/">Verisign</a>, <a href="https://www.geotrust.com">GeoTrust</a>, <a href="https://www.rapidssl.com/">RapidSSL</a>.
+The price for SSL certificate will go from low to high for Single domain certificate, Wildcard certificate,
+and Extended validation certificates respectively. Small startup or Blog owner cannot afford SSL certificates.</p>
+
+<p>But you can get free SSL certificates through <a href="https://letsencrypt.org/">Let’s Encrypt</a> which is
+is a free, automated, and open Certificate Authority. It provides an easy way to obtain and install trusted certificates for free.
+Lets see how we can get SSL certificate.</p>
+
+<h3>Install Let’s Encrypt</h3>
+
+<p>In this tutorial, we are using Ubuntu 14.01. First we have to install Let’s Encrypt client
+tool <a href="https://github.com/certbot/certbot">certbot-auto</a></p>
+
+<pre><code>wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+</code></pre>
+
+<h3>Getting new certificates</h3>
+
+<p>To obtain a cert for <code>acme.com</code>, <code>www.acme.com</code> and <code>blog.acme.net</code>:</p>
+
+<pre><code>./certbot-auto certonly --standalone --email admin@acme.com -d acme.com -d www.acme.com -d blog.acme.net
+</code></pre>
+
+<p>If you’re running a local webserver for which you have the ability to modify the content being served,
+and you’d prefer not to stop the webserver during the certificate issuance process, you can use the
+<a href="https://certbot.eff.org/docs/using.html#webroot">webroot plugin</a> to obtain a cert by including certonly and
+<code>--webroot</code> on the command line.</p>
+
+<pre><code>./certbot certonly --webroot -w /var/www/acme/ -d www.acme.com -d acme.com -w /var/www/blog/ -d blog.acme.net -d another.blog.acme.net
+</code></pre>
+
+<p><em>Where:</em></p>
+
+<p><strong>-d</strong> = Domain name</p>
+
+<p><strong>-w</strong> = Directory in which SSL certificates to be copied</p>
+
+<h3>Renew Certificates</h3>
+
+<p>Let&rsquo;s Encrypt certificates will expire in 90 days after creation or renewal. You have to renew the certificates automatically before they expire. You can arrange for automatic renewal by adding a <code>cron</code> or <code>systemd</code> job which runs the following:</p>
+
+<pre><code>./certbot-auto renew --quiet --no-self-upgrade
+</code></pre>
+
+<p>You can find more detailed information and options in the <a href="https://certbot.eff.org/docs/intro.html">full documentation.</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1840,141 +1913,6 @@ For web browser based automation, wait for my next blog on Selenium.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/">I Am a C Programmer. Why I Love AngularJS?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T19:01:42+05:30" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The intended audience for this blog are not the people who have profound knowledge in HTML and Javascript.  This is only for those who are in inertia to experiment with web development.  Also, please be aware that this is not beginner&rsquo;s tutorial for AngularJS.</p>
-
-<p>I have this habit of trying some web related stuff rarely once in a year.  Couple of years back on a fine morning started to play with jQuery and was impressed by its power.  But at the end of the day thought there is so much to APIs to remember or at least be aware of. Then decided, it&rsquo;s not going to work out for me and that was the last time I tried anything on the web.</p>
-
-<p>Last week I had a chance to play with AngularJS and my immediate reaction was &ldquo;WoW!!!&rdquo;. After my first encounter with AngularJS I thought this is not going to be just one day affair and fell in love with AngularJS. During the course of this blog I&rsquo;ll walk you through the features of AngularJS which impressed me.</p>
-
-<h4>Framework and library:</h4>
-
-<p>First of all, AngularJS is not library like jQuery, it is a framework.  So there is no onus of remembering the APIs.</p>
-
-<h4>Empowering HTML:</h4>
-
-<p>HTML was born when the intention of web was only to display static content.  As the name suggests that is only a markup language &ndash; nothing wrong, nobody to blame. The people who designed that had only scoped for that.  But now, the web is not that simple.
-And being a C programmer I wished if there is anyway to add if condition, loop, block scope in HTML.  AngularJS comes as a prosthetic limb for the handicapped HTML.</p>
-
-<p>To display an element only when a condition is met (i.e.,) having a if construct. This is possible in AngularJS using <code>ng-if</code> or <code>ng-show</code> directive.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;input type="text" ng-model="customer.name" ng-if="customer.edit"&gt;
-</span><span class='line'>&lt;span ng-bind="customer.name" ng-if="!customer.edit"&gt;&lt;/span&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If customer.edit is set true, customer.name will be displayed in text box, else will be displayed in span.</p>
-
-<p>To iterate through a array of items and create a <code>&lt;ul&gt;</code> or <code>&lt;li&gt;</code> or even populate a
-<code>&lt;table&gt;</code>.  <code>ng-repeat</code> directive does the job.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;table&gt;
-</span><span class='line'>    &lt;thead&gt;
-</span><span class='line'>        &lt;tr&gt;
-</span><span class='line'>            &lt;th&gt;Name&lt;/th&gt;
-</span><span class='line'>            &lt;th&gt;Amount&lt;/th&gt;
-</span><span class='line'>            &lt;th&gt;ROI&lt;/th&gt;
-</span><span class='line'>        &lt;/tr&gt;
-</span><span class='line'>    &lt;/thead&gt;
-</span><span class='line'>    &lt;tbody&gt;
-</span><span class='line'>        &lt;tr ng-repeat="customer in customers"&gt;
-</span><span class='line'>            &lt;td ng-bind="customer.name"&gt;&lt;/td&gt;
-</span><span class='line'>            &lt;td ng-bind="customer.amount"&gt;&lt;/td&gt;
-</span><span class='line'>            &lt;td ng-bind="customer.roi"&gt;&lt;/td&gt;
-</span><span class='line'>        &lt;/tr&gt;
-</span><span class='line'>    &lt;/tbody&gt;
-</span><span class='line'>&lt;/table&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To restrict the scope of variables and functions within a block, <code>ng-controller</code> can be used.
-Though the use of <code>ng-controller</code> is more than that.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script&gt;
-</span><span class='line'>    angular.module("bank", []).
-</span><span class='line'>    controller('BankController',
-</span><span class='line'>        function BankController($scope) {
-</span><span class='line'>            $scope.customers = [name:'kansamy', amount:'1000', roi:'9', edit:0}, {name:'munsamy', amount:'300', roi:'2', edit:0}];
-</span><span class='line'>            $scope.customer = {name:'', amount:'', roi:'', edit:0};
-</span><span class='line'>        });
-</span><span class='line'>&lt;script&gt;
-</span><span class='line'>&lt;body ng-app="bank" ng-controller="BankController"&gt;
-</span><span class='line'>...
-</span><span class='line'>&lt;/body&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The scope of bank controller is throughout the <code>&lt;body&gt;</code>.
-This scope can be restricted to any <code>&lt;div&gt;</code> or any other element by setting
-<code>ng-controller</code> accordingly. <code>$scope</code> variable has a special meaning mapping to
-the scope of the controller.</p>
-
-<p>There is much more talk to about AngularJS &ndash; what I have captured here is only the picture of love at first sight.</p>
-
-<p>I have hosted a simple no use application exercising these features of AngularJS
-<a href="https://brilliant-fire-1717.firebaseapp.com/bank.html">https://brilliant-fire-1717.firebaseapp.com/bank.html</a></p>
-
-<p>No wonder, these features can one day become integral part of HTML.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1984,7 +1922,7 @@ the scope of the controller.</p>
   </div>
 </div>
 <aside class="sidebar">
-  <a href="https://www.siteground.com/index.htm?afcode=3dfb52eb34873682ecebfbd49f9b1016" onClick="this.href='https://www.siteground.com/web-hosting.htm?afbannercode=214976a93e9716150af93592cb004829'" ><img src="https://ua.siteground.com/img/banners/general/dynamic-price/125x125.jpg" alt="Web Hosting" width="125" height="125" border="0"></a>
+  <a href="https://www.siteground.com/index.htm?afcode=3dfb52eb34873682ecebfbd49f9b1016" onClick="this.href='https://www.siteground.com/web-hosting.htm?afbannercode=dc398bb2f6a6f56f748bd36b56d98100'" ><img src="https://ua.siteground.com/img/banners/general/dynamic-price/250x250.jpg" alt="Web Hosting" width="250" height="250" border="0"></a>
 
   
     <section>
@@ -2004,6 +1942,10 @@ the scope of the controller.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/01/24/lets-encrypt-free-ssl-certificate/">Secure your sites with Lets Encrypt Free SSL Certificates</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/21/random-rationalized/">Random Rationalized</a>
       </li>
     
@@ -2017,10 +1959,6 @@ the scope of the controller.</p>
     
       <li class="post">
         <a href="/blog/2014/06/07/deployed-my-static-site-before-my-friend-finished-peeing/">Deployed my static site before my friend finished peeing</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/05/backup-of-openshift-application/">Backup of Openshift Application</a>
       </li>
     
   </ul>

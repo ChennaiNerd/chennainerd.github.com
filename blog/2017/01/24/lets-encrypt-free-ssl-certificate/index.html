@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: angularjs - Chennai Nerd</title>
+  <title>Secure your sites with Lets Encrypt Free SSL Certificates - Chennai Nerd</title>
   <meta name="author" content="Chennai Nerd">
 
   
-  <meta name="description" content="Category: angularjs">
+  <meta name="description" content="SSL certificates are vital to protect communications between the web server and client.
+We used to buy SSL certificates from Symantec,
+Verisign, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.chennainerd.inblog/categories/angularjs/">
+  <link rel="canonical" href="http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -92,36 +94,132 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Angularjs</h1>
+    
+      <h1 class="entry-title">Secure Your Sites With Lets Encrypt Free SSL Certificates</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-24T10:26:07+05:30" pubdate data-updated="true">Jan 24<span>th</span>, 2017</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>SSL certificates are vital to protect communications between the web server and client.
+We used to buy SSL certificates from <a href="https://www.symantec.com/ssl-certificates/">Symantec</a>,
+<a href="https://www.verisign.com/en_IN/">Verisign</a>, <a href="https://www.geotrust.com">GeoTrust</a>, <a href="https://www.rapidssl.com/">RapidSSL</a>.
+The price for SSL certificate will go from low to high for Single domain certificate, Wildcard certificate,
+and Extended validation certificates respectively. Small startup or Blog owner cannot afford SSL certificates.</p>
 
-  
-  <h2>2014</h2>
+<p>But you can get free SSL certificates through <a href="https://letsencrypt.org/">Let’s Encrypt</a> which is
+is a free, automated, and open Certificate Authority. It provides an easy way to obtain and install trusted certificates for free.
+Lets see how we can get SSL certificate.</p>
 
-<article>
-  
-<h1><a href="/blog/2014/02/22/i-am-a-c-programmer-why-i-love-angularjs/">I am a C programmer. Why i love AngularJS?</a></h1>
-<time datetime="2014-02-22T19:01:42+05:30" pubdate><span class='month'>Feb</span> <span class='day'>22</span> <span class='year'>2014</span></time>
+<h3>Install Let’s Encrypt</h3>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/html/'>html</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a></span>
-</footer>
+<p>In this tutorial, we are using Ubuntu 14.01. First we have to install Let’s Encrypt client
+tool <a href="https://github.com/certbot/certbot">certbot-auto</a></p>
 
+<pre><code>wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+</code></pre>
 
-</article>
+<h3>Getting new certificates</h3>
 
+<p>To obtain a cert for <code>acme.com</code>, <code>www.acme.com</code> and <code>blog.acme.net</code>:</p>
+
+<pre><code>./certbot-auto certonly --standalone --email admin@acme.com -d acme.com -d www.acme.com -d blog.acme.net
+</code></pre>
+
+<p>If you’re running a local webserver for which you have the ability to modify the content being served,
+and you’d prefer not to stop the webserver during the certificate issuance process, you can use the
+<a href="https://certbot.eff.org/docs/using.html#webroot">webroot plugin</a> to obtain a cert by including certonly and
+<code>--webroot</code> on the command line.</p>
+
+<pre><code>./certbot certonly --webroot -w /var/www/acme/ -d www.acme.com -d acme.com -w /var/www/blog/ -d blog.acme.net -d another.blog.acme.net
+</code></pre>
+
+<p><em>Where:</em></p>
+
+<p><strong>-d</strong> = Domain name</p>
+
+<p><strong>-w</strong> = Directory in which SSL certificates to be copied</p>
+
+<h3>Renew Certificates</h3>
+
+<p>Let&rsquo;s Encrypt certificates will expire in 90 days after creation or renewal. You have to renew the certificates automatically before they expire. You can arrange for automatic renewal by adding a <code>cron</code> or <code>systemd</code> job which runs the following:</p>
+
+<pre><code>./certbot-auto renew --quiet --no-self-upgrade
+</code></pre>
+
+<p>You can find more detailed information and options in the <a href="https://certbot.eff.org/docs/intro.html">full documentation.</a></p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Fizer Khan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-24T10:26:07+05:30" pubdate data-updated="true">Jan 24<span>th</span>, 2017</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/" data-via="" data-counturl="http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/05/21/random-rationalized/" title="Previous Post: Random Rationalized">&laquo; Random Rationalized</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -191,7 +289,10 @@
       var disqus_shortname = 'chennainerd';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/';
+        var disqus_url = 'http://www.chennainerd.in/blog/2017/01/24/lets-encrypt-free-ssl-certificate/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
